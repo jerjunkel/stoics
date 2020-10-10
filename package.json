@@ -17,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/jerjunkel/stoic-api/issues"
   },
-  "homepage": "https://github.com/jerjunkel/stoic-api#readme"
+  "homepage": "https://github.com/jerjunkel/stoic-api#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
