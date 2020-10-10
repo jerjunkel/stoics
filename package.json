@@ -1,0 +1,21 @@
+{
+  "name": "stoic-api",
+  "version": "1.0.0",
+  "description": "A Stoic qoutes rest api",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jerjunkel/stoic-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jerjunkel/stoic-api/issues"
+  },
+  "homepage": "https://github.com/jerjunkel/stoic-api#readme"
+}
