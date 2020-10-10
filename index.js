@@ -4,14 +4,10 @@ const morgan = require("morgan");
 
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
-//////////////////////////////////////
 
-// Add morgan logger middleware
+// Add Morgan Logger
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => {
-  res.send("HELLO");
-});
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
