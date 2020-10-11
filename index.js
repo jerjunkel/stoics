@@ -2,9 +2,13 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const qod = require("./routes/qod");
+const dbConnect = require("./config/db");
 
 // Configure dot-env
 require("dotenv").config();
+
+// Connect to database
+dbConnect();
 
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
