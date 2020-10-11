@@ -3,6 +3,9 @@ const app = express();
 const morgan = require("morgan");
 const qod = require("./routes/qod");
 
+// Configure dot-env
+require("dotenv").config();
+
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
 
