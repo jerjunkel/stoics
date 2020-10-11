@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema({
+  day: {
+    type: Number,
+  },
   author: {
     type: String,
     required: true,
