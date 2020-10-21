@@ -3,6 +3,7 @@ const schema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   bio: {
     type: String,
