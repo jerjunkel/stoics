@@ -6,10 +6,12 @@ const Author = require("../models/Author");
 // @access Public
 exports.getQOD = async (req, res) => {
   try {
-    const { quote, day, author } = await Quote.findOne({}, "-_id");
-    const { name } = await Author.findById(author);
+    const quote = await Quote.findOne({}, "-_id").populate({
+      path: "author",
+      select: "name -_id",
+    });
 
-    res.status(200).json({ quote, day, name });
+    res.status(200).json(quote);
   } catch (err) {
     console.log(err);
   }
