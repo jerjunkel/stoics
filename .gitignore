@@ -1,6 +1,9 @@
 # Files
 seeder.js
 
+#Folders
+_data/
+
 # Logs
 logs
 *.log

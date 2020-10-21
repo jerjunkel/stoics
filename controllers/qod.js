@@ -1,5 +1,4 @@
 const Quote = require("../models/Quote");
-const Author = require("../models/Author");
 
 // @desc   Get the day quote
 // @route  GET /
