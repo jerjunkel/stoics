@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema({
   day: {
     type: Number,
+    min: 1,
+    max: 366,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
