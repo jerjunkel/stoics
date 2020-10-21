@@ -1,4 +1,5 @@
 const Quote = require("../models/Quote");
+require("../models/Author");
 
 // @desc   Get the day quote
 // @route  GET /
@@ -7,7 +8,7 @@ exports.getQOD = async (req, res) => {
   try {
     const quote = await Quote.findOne({}, "-_id").populate({
       path: "author",
-      select: "name -_id",
+      select: "-_id",
     });
 
     res.status(200).json(quote);
