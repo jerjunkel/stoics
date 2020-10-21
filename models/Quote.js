@@ -8,7 +8,7 @@ const schema = mongoose.Schema({
     ref: "Author",
     required: true,
   },
-  quote: {
+  text: {
     type: String,
     required: true,
   },
