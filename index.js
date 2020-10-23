@@ -3,6 +3,7 @@ const app = express();
 const morgan = require("morgan");
 const qod = require("./routes/qod");
 const dbConnect = require("./config/db");
+const cron = require("cron");
 
 // Configure dot-env
 require("dotenv").config();
