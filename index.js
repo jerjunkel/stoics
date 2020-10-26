@@ -5,6 +5,9 @@ const qod = require("./routes/qod");
 const dbConnect = require("./config/db");
 const cron = require("cron");
 
+// QOD Cron job
+require("./jobs/qodJob")(cron);
+
 // Configure dot-env
 require("dotenv").config();
 

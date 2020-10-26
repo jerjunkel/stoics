@@ -1,7 +1,16 @@
-module.exports = (cron, fn, config = {}) => {
+const qodStore = require("../store/qod");
+const getRandomQuote = require("../utilities/getRandomQuote");
+const onTick = () => {
+  getRandomQuote()
+    .then((quote) => {
+      qodStore.actions.update(quote);
+    })
+    .catch((err) => console.log(err));
+};
+module.exports = (cron) => {
   const job = new cron.CronJob(
     "* * * * *",
-    fn,
+    onTick,
     null,
     true,
     "America/Los_Angeles"

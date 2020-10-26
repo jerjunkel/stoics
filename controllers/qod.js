@@ -1,4 +1,5 @@
 const Quote = require("../models/Quote");
+const store = require("../store/qod");
 require("../models/Author");
 
 // @desc   Get the day quote
@@ -11,7 +12,7 @@ exports.getQOD = async (req, res) => {
       select: "-_id",
     });
 
-    res.status(200).json(quote);
+    res.status(200).json(store.getters.getState().qod);
   } catch (err) {
     console.log(err);
   }
