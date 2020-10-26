@@ -14,6 +14,11 @@ const schema = mongoose.Schema({
     type: String,
     required: true,
   },
+  flag: {
+    type: Boolean,
+    default: false,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Quote", schema);
