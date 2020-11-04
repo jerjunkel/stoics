@@ -4,15 +4,25 @@ const morgan = require("morgan");
 const qod = require("./routes/qod");
 const dbConnect = require("./config/db");
 const cron = require("cron");
-
-// QOD Cron job
-require("./jobs/qodJob")(cron);
+const qodStore = require("./store/qod");
 
 // Configure dot-env
 require("dotenv").config();
 
 // Connect to database
 dbConnect();
+
+// Check for initial QOD in store and update
+if (qodStore.getters.getState().qod == "") {
+  require("./utilities/getRandomQuote")()
+    .then((quote) => {
+      qodStore.actions.update(quote);
+    })
+    .catch((err) => console.log(err));
+}
+
+// Start QOD Cron job
+require("./jobs/qodJob")(cron);
 
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
