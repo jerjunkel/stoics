@@ -14,15 +14,11 @@ dbConnect();
 
 // Check for initial QOD in store and update
 if (qodStore.getters.getState().qod == "") {
-  require("./utilities/getRandomQuote")()
-    .then((quote) => {
-      qodStore.actions.update(quote);
-    })
-    .catch((err) => console.log(err));
+  require("./utilities/setQOD")();
 }
 
 // Start QOD Cron job
-require("./jobs/qodJob")(cron);
+// require("./jobs/qodJob")(cron);
 
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
