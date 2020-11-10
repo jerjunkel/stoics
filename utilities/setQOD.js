@@ -9,12 +9,12 @@ async function setQuoteOfDay() {
     let quote = await Quote.findOne({ day });
 
     if (quote) {
-      const QODResource = await populateQODResource(quote);
-      store.actions.update(QODResource);
+      const qodResource = await quote.populateWithAuthorResource();
+      store.actions.update(qodResource);
       return;
     }
 
-    // Get a random QOD
+    // Get a random quote
     const quotes = await Quote.aggregate([
       { $match: { flag: false } },
       { $sample: { size: 1 } },
@@ -24,9 +24,9 @@ async function setQuoteOfDay() {
     quote = quotes[0];
     quote.day = day;
 
-    await Quote.findByIdAndUpdate(quote._id, { day, flag: true });
-    const QODResource = await populateQODResource(quote);
-    store.actions.update(QODResource);
+    quote = await Quote.findByIdAndUpdate(quote._id, { day, flag: true });
+    const qodResource = await quote.populateWithAuthorResource();
+    store.actions.update(qodResource);
   } catch (err) {
     console.log(err);
   }
@@ -36,18 +36,6 @@ function dayOfTheYear(date) {
   return Math.floor(
     (date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24
   );
-}
-
-async function populateQODResource(quote) {
-  try {
-    const formatedQOD = await Quote.findById(quote._id, "-_id").populate({
-      path: "author",
-      select: "-_id",
-    });
-    return formatedQOD;
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 module.exports = setQuoteOfDay;

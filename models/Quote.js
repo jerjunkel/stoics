@@ -21,4 +21,17 @@ const schema = mongoose.Schema({
   },
 });
 
+schema.methods.populateWithAuthorResource = async function () {
+  try {
+    const populatedResource = await this.model("Quote")
+      .findById(this._id, "-_id")
+      .populate({
+        path: "author",
+        select: "-_id",
+      });
+    return populatedResource;
+  } catch (err) {
+    console.log(err);
+  }
+};
 module.exports = mongoose.model("Quote", schema);
