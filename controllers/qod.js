@@ -6,14 +6,6 @@ require("../models/Author");
 // @route  GET /
 // @access Public
 exports.getQOD = async (req, res) => {
-  try {
-    const quote = await Quote.findOne({}, "-_id").populate({
-      path: "author",
-      select: "-_id",
-    });
-
-    res.status(200).json(store.getters.getState().qod);
-  } catch (err) {
-    console.log(err);
-  }
+  const qod = store.getters.getState().qod;
+  res.status(200).json(qod);
 };
