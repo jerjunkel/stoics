@@ -1,7 +1,7 @@
-const { text } = require("express");
 const Quote = require("../models/Quote");
 const day = dayOfTheYear(new Date());
 const store = require("../store/qod");
+const utility = require("./quotes");
 
 async function setQuoteOfDay() {
   try {
@@ -15,16 +15,14 @@ async function setQuoteOfDay() {
     }
 
     // Get a random quote
-    const quotes = await Quote.aggregate([
+    const randomQuote = await utility.getRandomQuote([
       { $match: { flag: false } },
       { $sample: { size: 1 } },
     ]);
 
-    if (quotes.length == 0) throw Error("No quotes found in database");
-    quote = quotes[0];
-    quote.day = day;
+    if (!randomQuote) throw Error("No quotes found in database");
 
-    quote = await Quote.findByIdAndUpdate(quote._id, { day, flag: true });
+    quote = await Quote.findByIdAndUpdate(randomQuote._id, { day, flag: true });
     const qodResource = await quote.populateWithAuthorResource();
     store.actions.update(qodResource);
   } catch (err) {
