@@ -1,15 +1,11 @@
 const qodStore = require("../store/qod");
-const getRandomQuote = require("../utilities/getRandomQuote");
+const setQOD = require("../utilities/setQOD");
 const onTick = () => {
-  getRandomQuote()
-    .then((quote) => {
-      qodStore.actions.update(quote);
-    })
-    .catch((err) => console.log(err));
+  setQOD();
 };
 module.exports = (cron) => {
   const job = new cron.CronJob(
-    "* * * * *",
+    "0 1 * * *",
     onTick,
     null,
     true,

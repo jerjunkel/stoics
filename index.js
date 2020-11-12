@@ -18,7 +18,7 @@ if (qodStore.getters.getState().qod == "") {
 }
 
 // Start QOD Cron job
-// require("./jobs/qodJob")(cron);
+require("./jobs/qodJob")(cron);
 
 //////////////////////////////////////
 ////////////MIDDLEWARE////////////////
