@@ -1,4 +1,3 @@
-const qodStore = require("../store/qod");
 const setQOD = require("../utilities/setQOD");
 const onTick = () => {
   setQOD();
