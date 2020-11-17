@@ -9,7 +9,7 @@ module.exports = (cron) => {
     onTick,
     null,
     true,
-    "America/Los_Angeles"
+    "America/New_York"
   );
   job.start();
 };

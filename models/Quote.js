@@ -19,6 +19,11 @@ const schema = mongoose.Schema({
     default: false,
     required: true,
   },
+  source: {
+    type: String,
+    default: "n/a",
+    required: true,
+  },
 });
 
 schema.methods.populateWithAuthorResource = async function () {
