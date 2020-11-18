@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const qod = require("./routes/qod");
+const quote = require("./routes/quote");
 const dbConnect = require("./config/db");
 const cron = require("cron");
 const qodStore = require("./store/qod");
+const quotes = require("./utilities/quotes");
 
 // Configure dot-env
 require("dotenv").config();
@@ -30,6 +32,7 @@ app.use(morgan("dev"));
 ////////////ROUTES////////////////
 
 // Quote of the day route
+app.use("/quote", quote);
 app.use("/qod", qod);
 const PORT = process.env.PORT || 5000;
 
