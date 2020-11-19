@@ -50,10 +50,8 @@ schema.methods.populateWithAuthorName = async function () {
         select: "-_id name",
       });
 
-    const author = populatedResource.author.name;
-    const text = populatedResource.text;
-    const day = populatedResource.day;
-    return { author, text, day };
+    const { text, day, source, author } = populatedResource;
+    return { text, day, source, author: author.name };
   } catch (err) {
     console.log(err);
   }
