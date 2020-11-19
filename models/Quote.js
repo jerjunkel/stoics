@@ -34,9 +34,29 @@ schema.methods.populateWithAuthorResource = async function () {
         path: "author",
         select: "-_id",
       });
+
     return populatedResource;
   } catch (err) {
     console.log(err);
   }
 };
+
+schema.methods.populateWithAuthorName = async function () {
+  try {
+    const populatedResource = await this.model("Quote")
+      .findById(this._id, "-_id")
+      .populate({
+        path: "author",
+        select: "-_id name",
+      });
+
+    const author = populatedResource.author.name;
+    const text = populatedResource.text;
+    const day = populatedResource.day;
+    return { author, text, day };
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = mongoose.model("Quote", schema);

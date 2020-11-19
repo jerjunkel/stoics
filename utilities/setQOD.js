@@ -9,7 +9,7 @@ async function setQuoteOfDay() {
     let quote = await Quote.findOne({ day });
 
     if (quote) {
-      const qodResource = await quote.populateWithAuthorResource();
+      const qodResource = await quote.populateWithAuthorName();
       store.actions.update(qodResource);
       return;
     }
@@ -23,7 +23,7 @@ async function setQuoteOfDay() {
     if (!randomQuote) throw Error("No quotes found in database");
 
     quote = await Quote.findByIdAndUpdate(randomQuote._id, { day, flag: true });
-    const qodResource = await quote.populateWithAuthorResource();
+    const qodResource = await quote.populateWithAuthorName();
     store.actions.update(qodResource);
   } catch (err) {
     console.log(err);
