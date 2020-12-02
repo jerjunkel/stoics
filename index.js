@@ -6,7 +6,6 @@ const quote = require("./routes/quote");
 const dbConnect = require("./config/db");
 const cron = require("cron");
 const qodStore = require("./store/qod");
-const quotes = require("./utilities/quotes");
 
 // Configure dot-env
 require("dotenv").config();
@@ -34,6 +33,7 @@ app.use(morgan("dev"));
 // Quote of the day route
 app.use("/quote", quote);
 app.use("/qod", qod);
+app.use("/test", require("./routes/tests"));
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
