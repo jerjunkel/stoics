@@ -24,6 +24,12 @@ const schema = mongoose.Schema({
     default: "n/a",
     required: true,
   },
+  tags: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tag",
+    },
+  ],
 });
 
 schema.methods.populateWithAuthorResource = async function () {
