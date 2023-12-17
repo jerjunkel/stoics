@@ -12,4 +12,21 @@ const getAQuote = async (req: Express.Request, res: Express.Response) => {
   return res.send(quote);
 };
 
-export { getAllQuotes, getAQuote };
+const getTodayQuote = async (req: Express.Request, res: Express.Response) => {
+  const day = dayOfTheYear(new Date());
+  const quote = await Quote.find({ day });
+
+  return res.send(quote);
+};
+
+function dayOfTheYear(date: Date) {
+  return Math.floor(
+    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
+      1000 /
+      60 /
+      60 /
+      24
+  );
+}
+
+export { getAllQuotes, getAQuote, getTodayQuote };
