@@ -1,6 +1,6 @@
 import Express from "express";
 import Quote from "../models/Quote.js";
-import { getRandomQuote } from "../utils/quotes.js";
+import { getRandomQuote, getDailyQuote } from "../utils/quotes.js";
 
 const getAllQuotes = async (req: Express.Request, res: Express.Response) => {
   const quotes = await Quote.find({});
@@ -14,9 +14,7 @@ const getAQuote = async (req: Express.Request, res: Express.Response) => {
 };
 
 const getTodayQuote = async (req: Express.Request, res: Express.Response) => {
-  const day = dayOfTheYear(new Date());
-  const quote = await Quote.find({ day });
-
+  const quote = await getDailyQuote();
   return res.send(quote);
 };
 
