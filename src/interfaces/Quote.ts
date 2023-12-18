@@ -7,4 +7,5 @@ export default interface Quote {
   day?: number;
   source: string;
   tags: [Tag];
+  flag: boolean;
 }
