@@ -7,8 +7,7 @@ module.exports = (cron) => {
     "0 1 * * *",
     onTick,
     null,
-    true,
+    false,
     "America/New_York"
   );
-  job.start();
 };
