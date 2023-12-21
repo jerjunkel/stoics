@@ -9,6 +9,7 @@ const schema = new Schema<Tag>({
     unique: true,
     default: "stoic",
   },
+  description: String,
 });
 
 export default model<Tag>("Tag", schema);
