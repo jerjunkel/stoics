@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import Author from "../interfaces/Author.js";
+import Stoic from "../interfaces/Stoic.js";
 
-const schema = new Schema<Author>({
+const schema = new Schema<Stoic>({
   name: {
     type: String,
     required: true,
@@ -15,4 +15,4 @@ const schema = new Schema<Author>({
   },
 });
 
-export default model<Author>("Author", schema);
+export default model<Stoic>("Stoic", schema);

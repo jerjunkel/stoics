@@ -7,9 +7,9 @@ const schema = new mongoose.Schema<Quote>({
     min: 1,
     max: 366,
   },
-  author: {
+  stoic: {
     type: mongoose.Types.ObjectId,
-    ref: "Author",
+    ref: "Stoic",
     required: true,
   },
   text: {

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Quote = require("../models/Quote");
-const Author = require("../models/Author");
+const Stoic = require("../models/Stoic");
 const Tag = require("../models/Tag");
 const fs = require("fs");
 const path = require("path");
@@ -76,37 +76,37 @@ const parseStoicData = () => {
     });
 };
 
-const createAuthor = async ({ name, bio }) => {
-  let author = await Author.findOne({ name });
+const createStoic = async ({ name, bio }) => {
+  let stoic = await Stoic.findOne({ name });
 
-  if (!author) {
-    // console.log(`No author found named ${name}`);
-    author = await Author.create({
+  if (!stoic) {
+    // console.log(`No stoic found named ${name}`);
+    stoic = await Stoic.create({
       name,
       bio,
     });
-    // console.log(`Created author named ${name}`);
+    // console.log(`Created stoic named ${name}`);
   }
-  return author;
+  return stoic;
 };
 
-const createQuote = async (quote, author) => {
+const createQuote = async (quote, stoic) => {
   return Quote.create({
-    author,
+    stoic,
     text: quote,
   });
 };
 
 // const add = async (data) => {
 //   const { name, bio, quotes } = data;
-//   const author = await createAuthor({ name, bio });
-//   await createQuotes(quotes, author);
+//   const stoic = await createStoic({ name, bio });
+//   await createQuotes(quotes, stoic);
 // };
 
-async function createQuotes(quotes, author) {
+async function createQuotes(quotes, stoic) {
   try {
     for (let quote of quotes) {
-      const instance = new Quote({ quote: quote.quote, author });
+      const instance = new Quote({ quote: quote.quote, stoic });
       const tags = quote.tags.map(async (tag) => await createTag(tag));
       instance.tags = tags;
       // instance.save();
@@ -136,13 +136,13 @@ async function createTag(name) {
 async function add(data) {
   const { name, bio, quotes } = data;
   try {
-    // Create author
-    const author = new Author({ name, bio });
+    // Create stoic
+    const stoic = new Stoic({ name, bio });
 
     for (let info of quotes) {
       const { quote: text, tags } = info;
       //Add quote
-      const newQuote = new Quote({ text, author });
+      const newQuote = new Quote({ text, stoic });
       // Add tags
       newQuote.tags = tags.map((tag) => new Tag({ name: tag }));
       newQuote.save();
@@ -150,7 +150,7 @@ async function add(data) {
     }
   } catch (error) {
     if (error.name === "MongoError" && error.code === 11000) {
-      console.log(`Author named ${name} already in database`);
+      console.log(`Stoic named ${name} already in database`);
     }
     console.log(error);
   }
