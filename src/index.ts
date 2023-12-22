@@ -10,6 +10,7 @@ const app = express();
 // Connect to Database
 dbConnect();
 
+app.use(express.json());
 app.use(routes);
 
 // Cron job to update daily quote route
