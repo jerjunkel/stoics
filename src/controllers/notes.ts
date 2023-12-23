@@ -12,8 +12,8 @@ const getNotes = async (req: Request, res: Response) => {
 };
 
 const createNote = async (req: Request, res: Response) => {
-  const { title, body, quoteID } = req.body;
-  const note = await Note.create({ title, body, quote: quoteID });
+  const { title, body, quote } = req.body;
+  const note = await Note.create({ title, body, quote });
   res.send(note);
 };
 
