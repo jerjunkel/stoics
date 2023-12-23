@@ -1,16 +1,29 @@
 import { Schema, model } from "mongoose";
 import Note from "../interfaces/Note.js";
-import Quote from "./Quote.js";
-import User from "./User.js";
 
 const schema = new Schema<Note>({
-  title: String,
-  body: String,
-  // quote: Quote,
-  // user: User,
+  title: {
+    type: String,
+    required: true,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  quote: {
+    type: Schema.ObjectId,
+    ref: "Quote",
+    required: true,
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createdAt: {
     type: String,
     default: new Date().toISOString(),
+    immutable: true,
   },
   editAt: {
     type: String,

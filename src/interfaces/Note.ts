@@ -3,7 +3,7 @@ import Quote from "./Quote.js";
 
 export default interface Note {
   title: string;
-  body: string;
+  content: string;
   user: User;
   quote: Quote;
   createdAt: string;
