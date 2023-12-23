@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import { Schema, model, Types } from "mongoose";
 import Quote from "../interfaces/Quote.js";
 
-const schema = new mongoose.Schema<Quote>({
+const schema = new Schema<Quote>({
   day: {
     type: Number,
     min: 1,
     max: 366,
   },
   stoic: {
-    type: mongoose.Types.ObjectId,
+    type: Types.ObjectId,
     ref: "Stoic",
     required: true,
   },
@@ -28,10 +28,10 @@ const schema = new mongoose.Schema<Quote>({
   },
   tags: [
     {
-      type: mongoose.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "Tag",
     },
   ],
 });
 
-export default mongoose.model<Quote>("Quote", schema);
+export default model<Quote>("Quote", schema);
