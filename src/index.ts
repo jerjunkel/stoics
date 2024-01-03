@@ -3,7 +3,7 @@ import dbConnect from "./config/db.js";
 import routes from "./routes/index.js";
 import dailyQuoteJob from "./jobs/dailyqoute.js";
 import config from "./config/index.js";
-import errorHandler from "./middlewares/erroHandler.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 // initalize express
 const app = express();
