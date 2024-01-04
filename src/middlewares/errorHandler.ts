@@ -1,14 +1,15 @@
 import { Response, Request, NextFunction } from "express";
+import { APIError } from "../utils/appErrors.js";
 
 const errorHandler = async (
-  error: Error,
+  error: APIError,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { message } = error;
+  const { message, statusCode } = error;
 
-  res.json({
+  res.status(statusCode).json({
     success: false,
     message,
   });
