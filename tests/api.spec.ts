@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../src/app";
-import { getQuoteByID } from "../src/services/quotes";
+import app from "../../src/app";
+import { getQuoteByID } from "../../src/services/quotes";
 
 const endpoint = "/quotes/123";
 
