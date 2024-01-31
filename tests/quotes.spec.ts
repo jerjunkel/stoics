@@ -29,7 +29,7 @@ describe("GET /api/qoutes", () => {
       const sut = request(app());
       const response = await sut.get(endpoint);
 
-      expect(response.header["content-type"]).toBe("");
+      expect(response.header["content-type"]).toMatch(/json/);
     });
     it.todo("should return payload with id");
   });
