@@ -13,13 +13,13 @@ const endpoint = "/quotes/123";
 
 describe("GET /api/qoutes", () => {
   describe("a quote with an id was found", () => {
-    beforeAll(() => {
-      const mockQuote = {
-        id: "123",
-        stoic: "foo",
-        text: "foobar foo bar",
-      };
+    const mockQuote = {
+      id: "123",
+      stoic: "foo",
+      text: "foobar foo bar",
+    };
 
+    beforeAll(() => {
       const spy = jest.spyOn(QuotesService, "getQuoteByID");
       ///@ts-ignore
       spy.mockResolvedValue(mockQuote);
@@ -43,6 +43,11 @@ describe("GET /api/qoutes", () => {
       const response = await sut.get(endpoint);
       expect(response.body.id).toBe("123");
     });
+
+    it("should return a single quote", async () => {
+      const sut = request(app());
+      const response = await sut.get(endpoint);
+      expect(response.body).toMatchObject(mockQuote);
+    });
   });
-  it.todo("should return a single quote");
 });
