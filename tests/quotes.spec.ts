@@ -12,6 +12,7 @@ afterAll(() => {
 const endpoint = "/quotes/123";
 
 describe("GET /api/qoutes", () => {
+  const spy = jest.spyOn(QuotesService, "getQuoteByID");
   describe("a quote with an id was found", () => {
     const mockQuote = {
       id: "123",
@@ -19,11 +20,8 @@ describe("GET /api/qoutes", () => {
       text: "foobar foo bar",
     };
 
-    beforeAll(() => {
-      const spy = jest.spyOn(QuotesService, "getQuoteByID");
-      ///@ts-ignore
-      spy.mockResolvedValue(mockQuote);
-    });
+    ///@ts-ignore
+    spy.mockResolvedValue(mockQuote);
 
     it("should return status code of 200", async () => {
       const sut = request(app());
@@ -48,6 +46,15 @@ describe("GET /api/qoutes", () => {
       const sut = request(app());
       const response = await sut.get(endpoint);
       expect(response.body).toMatchObject(mockQuote);
+    });
+  });
+
+  describe("no quote was found", () => {
+    spy.mockResolvedValue(null);
+    it("should return status code of 404", async () => {
+      const sut = request(app());
+      const response = await sut.get(endpoint);
+      expect(response.statusCode).toBe(404);
     });
   });
 });
