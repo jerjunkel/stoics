@@ -9,8 +9,8 @@ const getAllQuotes = async (req: Request, res: Response) => {
 
 const getAQuote = async (req: Request, res: Response) => {
   const id = req.params.id;
-  // const quote = await QuotesService.getQuoteByID(id);
-  return res.status(200).json({});
+  const quote = await QuotesService.getQuoteByID(id);
+  return res.status(200).json(quote);
 };
 
 const getTodayQuote = async (req: Request, res: Response) => {
