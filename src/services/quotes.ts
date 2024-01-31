@@ -1,4 +1,4 @@
-import Quote from "../models/Quote.js";
+import Quote from "../models/quotes.model.js";
 import IQuote from "../interfaces/Quote.js";
 
 const getQuotes = async (filter: {} = {}) => {

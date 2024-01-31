@@ -1,9 +1,9 @@
 import { Router } from "express";
-import quotesRouter from "./quotes.js";
-import stoicsRouter from "./stoics.js";
-import tagsRouter from "./tags.js";
-import notesRouter from "./notes.js";
-import authRouter from "./auth.js";
+import quotesRouter from "./quotes.router.js";
+import stoicsRouter from "./stoics.router.js";
+import tagsRouter from "./tags.router.js";
+import notesRouter from "./notes.router.js";
+import authRouter from "./users.router.js";
 import { protect } from "../middlewares/auth.js";
 
 const router = Router();

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllStoics, getAStoic } from "../controllers/stoic.js";
+import { getAllStoics, getAStoic } from "../controllers/stoics.controller.js";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Stoic from "../models/Stoic.js";
+import Stoic from "../models/stoics.model.js";
 
 const getAllStoics = async (req: Request, res: Response) => {
   const stoics = await Stoic.find({});

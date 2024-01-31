@@ -4,7 +4,7 @@ import {
   getAQuote,
   getTodayQuote,
   getARandomQuote,
-} from "../controllers/quote.js";
+} from "../controllers/quotes.controller.js";
 
 const router = Router();
 

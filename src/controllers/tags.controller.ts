@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Tag from "../models/Tag.js";
+import Tag from "../models/tags.model.js";
 
 const getAllTags = async (req: Request, res: Response) => {
   const tags = await Tag.find({});

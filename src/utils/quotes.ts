@@ -1,4 +1,4 @@
-import Quote from "../models/Quote.js";
+import Quote from "../models/quotes.model.js";
 
 const getRandomQuote = async (
   predicate: any[] = [{ $sample: { size: 1 } }]
