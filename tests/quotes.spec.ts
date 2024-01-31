@@ -25,7 +25,12 @@ describe("GET /api/qoutes", () => {
       const response = await sut.get(endpoint);
       expect(response.statusCode).toBe(200);
     });
-    it.todo("should return json content type");
+    it("should return json content type", async () => {
+      const sut = request(app());
+      const response = await sut.get(endpoint);
+
+      expect(response.header["content-type"]).toBe("");
+    });
     it.todo("should return payload with id");
   });
   it("should return a single quote", async () => {
