@@ -1,15 +1,10 @@
 import { Router } from "express";
-import {
-  getAllQuotes,
-  getAQuote,
-  getTodayQuote,
-  getARandomQuote,
-} from "../controllers/quotes.controller.js";
+import controller from "../controllers/quotes.controller.js";
 
 const router = Router();
 
-router.get("/daily", getTodayQuote);
-router.get("/random", getARandomQuote);
-router.get("/", getAllQuotes).get("/:id", getAQuote);
+router.get("/daily", controller.getTodayQuote);
+router.get("/random", controller.getARandomQuote);
+router.get("/", controller.getAllQuotes).get("/:id", controller.getAQuote);
 
 export default router;

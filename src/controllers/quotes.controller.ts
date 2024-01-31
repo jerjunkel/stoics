@@ -9,8 +9,8 @@ const getAllQuotes = async (req: Request, res: Response) => {
 
 const getAQuote = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const quote = await QuotesService.getQuoteByID(id);
-  return res.send(quote);
+  // const quote = await QuotesService.getQuoteByID(id);
+  return res.status(200).json({});
 };
 
 const getTodayQuote = async (req: Request, res: Response) => {
@@ -33,4 +33,4 @@ function dayOfTheYear(date: Date) {
   );
 }
 
-export { getAllQuotes, getAQuote, getTodayQuote, getARandomQuote };
+export default { getAllQuotes, getAQuote, getTodayQuote, getARandomQuote };
