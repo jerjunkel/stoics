@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
-import config from "./index.js";
 
-const dbConnect = async () => {
-  const dbConnInstance = await mongoose.connect(config.db.URI as string);
-
+const connect = async (uri: string) => {
+  const dbConnInstance = await mongoose.connect(uri);
   console.log(`MongoDB Connected: ${dbConnInstance.connection.host}`);
 };
 
-export default dbConnect;
+const disconnect = async () => {
+  mongoose.connection.close();
+};
+
+const drop = async () => {
+  mongoose.connection.dropDatabase();
+};
+
+export default { connect, disconnect, drop };
