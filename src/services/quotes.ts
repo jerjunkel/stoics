@@ -11,4 +11,4 @@ const getQuoteByID = async (id: string) => {
   return quote;
 };
 
-export default { getQuotes, getQuoteByID };
+export { getQuotes, getQuoteByID };
