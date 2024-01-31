@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../../src/app";
-import { getQuoteByID } from "../../src/services/quotes";
+import app from "../src/app";
+import { getQuoteByID } from "../src/services/quotes";
 
 const endpoint = "/quotes/123";
 
@@ -38,13 +38,17 @@ describe("GET /api/qoutes", () => {
       const sut = request(app());
       const response = await sut.get(endpoint);
       expect(response.body.id).toBe("123");
+      expect(response.statusCode).toBe(200);
+      expect(response.header["content-type"]).toMatch(/json/);
     });
 
     it("should return a single quote", async () => {
       mockQuotesByID.mockResolvedValue(mockQuote);
       const sut = request(app());
       const response = await sut.get(endpoint);
+      expect(response.statusCode).toBe(200);
       expect(response.body).toMatchObject(mockQuote);
+      expect(response.header["content-type"]).toMatch(/json/);
     });
   });
 
