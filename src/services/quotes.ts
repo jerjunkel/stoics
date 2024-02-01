@@ -1,14 +1,13 @@
-import Quote from "../models/quotes.model.js";
-import IQuote from "../interfaces/Quote.js";
+import QuoteRespository from "../repositories/quotes.repository.js";
 
-const getQuotes = async (filter: {} = {}) => {
-  const quotes = await Quote.find(filter).lean().populate("stoic", "name");
+const findAllQuotes = async (filter: {} = {}) => {
+  const quotes = await QuoteRespository.readAll(filter);
   return quotes;
 };
 
-const getQuoteByID = async (id: string) => {
-  const quote = await Quote.findById(id).lean().exec();
+const findQuoteById = async (id: string) => {
+  const quote = await QuoteRespository.readOne(id);
   return quote;
 };
 
-export { getQuotes, getQuoteByID };
+export { findQuoteById, findAllQuotes };

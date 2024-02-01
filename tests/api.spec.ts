@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../src/app";
-import { getQuoteByID } from "../src/services/quotes";
+import { findQuoteById } from "../src/services/quotes";
 
 const endpoint = "/quotes/123";
 
@@ -12,10 +12,10 @@ const mockQuote = {
 
 jest.mock("../src/services/quotes", () => ({
   __esModule: true,
-  getQuoteByID: jest.fn(),
+  findQuoteById: jest.fn(),
 }));
 
-const mockQuotesByID = getQuoteByID as jest.Mock;
+const mockQuotesByID = findQuoteById as jest.Mock;
 
 describe("GET /api/qoutes/123", () => {
   describe("a quote with an id was found", () => {
