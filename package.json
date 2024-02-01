@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "tsx watch src/index.ts",
-    "test": "jest "
+    "test": "jest"
   },
   "repository": {
     "type": "git",
