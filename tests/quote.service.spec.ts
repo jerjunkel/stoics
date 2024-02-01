@@ -9,7 +9,7 @@ afterAll(() => {
 
 describe("Quote Service tests", () => {
   it("should be call repository once", async () => {
-    const quotes = await findAllQuotes();
+    await findAllQuotes();
     expect(spy.mock.calls).toHaveLength(1);
   });
 
