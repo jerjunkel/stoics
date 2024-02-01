@@ -6,7 +6,7 @@ export default class QuoteRespository implements IRepository<IQuote> {
 
   remove(id: string) {}
 
-  async get(id: string): Promise<IQuote> {
+  async get(id: string): Promise<IQuote | null> {
     const quote = await Quote.findById(id).lean().exec();
     return quote as IQuote;
   }

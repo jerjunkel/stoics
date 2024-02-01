@@ -36,4 +36,10 @@ function dayOfTheYear(date: Date) {
   );
 }
 
-export default { getAllQuotes, getAQuote, getTodayQuote, getARandomQuote };
+export default {
+  service,
+  getAllQuotes,
+  getAQuote,
+  getTodayQuote,
+  getARandomQuote,
+};
