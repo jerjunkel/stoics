@@ -1,0 +1,20 @@
+import { IQuote, IRepository, IService } from "../interfaces/index.js";
+import QuoteRespository from "../repositories/quotes.repository.js";
+
+export default class QuoteService implements IService<IQuote> {
+  private _repository: QuoteRespository = new QuoteRespository();
+
+  get repository(): QuoteRespository {
+    return this._repository;
+  }
+
+  async getAllQuotes(): Promise<IQuote[]> {
+    const quotes = await this._repository.find({});
+    return quotes;
+  }
+
+  async getAQuoteByID(id: string) {
+    const quote = await this._repository.get(id);
+    return quote;
+  }
+}

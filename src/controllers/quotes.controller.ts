@@ -1,15 +1,17 @@
 import { Response, Request } from "express";
 import { getRandomQuote, getDailyQuote } from "../utils/quotes.js";
-import { findQuoteById, findAllQuotes } from "../services/quotes.js";
+import QuoteService from "../services/quotes.service.js";
+
+const service = new QuoteService();
 
 const getAllQuotes = async (req: Request, res: Response) => {
-  const quotes = await findAllQuotes();
+  const quotes = await service.getAllQuotes();
   return res.json(quotes);
 };
 
 const getAQuote = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const quote = await findQuoteById(id);
+  const quote = await service.getAQuoteByID(id);
   if (quote == null) return res.status(404).json({});
   return res.status(200).json(quote);
 };

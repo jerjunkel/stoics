@@ -1,6 +1,5 @@
 import Quote from "../models/quotes.model.js";
 import { IRepository, IQuote } from "../interfaces/index.js";
-import { model } from "mongoose";
 
 export default class QuoteRespository implements IRepository<IQuote> {
   add(element: IQuote) {}

@@ -1,7 +1,7 @@
-import { findAllQuotes } from "../src/services/quotes";
-import QuoteRespository from "../src/repositories/quotes.repository";
+import QuoteService from "../src/services/quotes.service";
 
-const spy = jest.spyOn(QuoteRespository, "readAll").mockResolvedValue([]);
+const mockService = new QuoteService();
+const spy = jest.spyOn(mockService.repository, "find").mockResolvedValue([]);
 
 afterAll(() => {
   spy.mockReset();
@@ -9,12 +9,12 @@ afterAll(() => {
 
 describe("Quote Service tests", () => {
   it("should be call repository once", async () => {
-    await findAllQuotes();
+    await mockService.getAllQuotes();
     expect(spy.mock.calls).toHaveLength(1);
   });
 
   it("should return an array", async () => {
-    const quotes = await findAllQuotes();
+    const quotes = await mockService.getAllQuotes();
     expect(Array.isArray(quotes)).toBe(true);
   });
 });
