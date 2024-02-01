@@ -17,7 +17,7 @@ jest.mock("../src/services/quotes", () => ({
 
 const mockQuotesByID = getQuoteByID as jest.Mock;
 
-describe("GET /api/qoutes", () => {
+describe("GET /api/qoutes/123", () => {
   describe("a quote with an id was found", () => {
     it("should return status code of 200", async () => {
       mockQuotesByID.mockResolvedValue(mockQuote);
