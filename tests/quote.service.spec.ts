@@ -7,14 +7,16 @@ afterAll(() => {
   spy.mockReset();
 });
 
-describe("Quote Service tests", () => {
-  it("should be call repository once", async () => {
-    await mockService.getAllQuotes();
-    expect(spy.mock.calls).toHaveLength(1);
-  });
+describe("Quote Service", () => {
+  describe("get all quotes", () => {
+    it("should be call repository once", async () => {
+      await mockService.getAllQuotes();
+      expect(spy.mock.calls).toHaveLength(1);
+    });
 
-  it("should return an array", async () => {
-    const quotes = await mockService.getAllQuotes();
-    expect(Array.isArray(quotes)).toBe(true);
+    it("should return an array", async () => {
+      const quotes = await mockService.getAllQuotes();
+      expect(Array.isArray(quotes)).toBe(true);
+    });
   });
 });
