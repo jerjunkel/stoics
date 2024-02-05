@@ -1,7 +1,9 @@
 import QuoteService from "../src/services/quotes.service";
+import QuoteRespository from "../src/repositories/quotes.repository";
 
-const mockService = new QuoteService();
-const spy = jest.spyOn(mockService.repository, "find").mockResolvedValue([]);
+const mockRepo = new QuoteRespository();
+const mockService = new QuoteService(mockRepo);
+const spy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 
 afterAll(() => {
   spy.mockReset();

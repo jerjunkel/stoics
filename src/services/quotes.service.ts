@@ -1,8 +1,12 @@
-import { IQuote, IRepository, IService } from "../interfaces/index.js";
+import { IQuote, IService } from "../interfaces/index.js";
 import QuoteRespository from "../repositories/quotes.repository.js";
 
 export default class QuoteService implements IService<IQuote> {
-  private _repository: QuoteRespository = new QuoteRespository();
+  private _repository: QuoteRespository;
+
+  constructor(repo: QuoteRespository) {
+    this._repository = repo;
+  }
 
   get repository(): QuoteRespository {
     return this._repository;

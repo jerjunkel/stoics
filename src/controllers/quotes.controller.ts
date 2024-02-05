@@ -1,8 +1,9 @@
 import { Response, Request } from "express";
 import { getRandomQuote, getDailyQuote } from "../utils/quotes.js";
 import QuoteService from "../services/quotes.service.js";
+import QuoteRespository from "../repositories/quotes.repository.js";
 
-const service = new QuoteService();
+const service = new QuoteService(new QuoteRespository());
 
 const getAllQuotes = async (req: Request, res: Response) => {
   const quotes = await service.getAllQuotes();
