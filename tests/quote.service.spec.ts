@@ -3,12 +3,12 @@ import QuoteRespository from "../src/repositories/quotes.repository";
 import { IQuote } from "../src/interfaces";
 import { ErrorHandlingMiddlewareFunction } from "mongoose";
 
-interface IQuoteDTO extends IQuote {
+interface IQuoteMockDTO extends IQuote {
   id: string;
 }
 const mockRepo = new QuoteRespository();
 const sut = new QuoteService(mockRepo);
-const mockQuote: IQuoteDTO = {
+const mockQuote: IQuoteMockDTO = {
   id: "123",
   text: "some inspirational quote",
   source: "n/a",
@@ -24,15 +24,16 @@ const mockRepoFindSpy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const mockRepoGetOneSpy = jest.spyOn(mockRepo, "get");
 
-afterAll(() => {
+afterEach(() => {
   jest.clearAllMocks();
+  mockRepoGetOneSpy.mockClear();
 });
 
 describe("Quote Service", () => {
-  describe("get a quote", () => {
+  describe("get a quote by ID", () => {
     it("should return a single quote if ID is found", async () => {
       mockRepoGetOneSpy.mockResolvedValue(mockQuote);
-      const quote = (await sut.getAQuoteByID("123")) as IQuoteDTO;
+      const quote = (await sut.getAQuoteByID("123")) as IQuoteMockDTO;
       expect(quote.id).toEqual(mockQuote.id);
     });
 
@@ -40,6 +41,11 @@ describe("Quote Service", () => {
       mockRepoGetOneSpy.mockResolvedValue(null);
       const quote = await sut.getAQuoteByID("456");
       expect(quote).toEqual(null);
+    });
+
+    it("should return null when ID is invalid mongoose ObjectID ", async () => {
+      const qoute = await sut.getAQuoteByID("789");
+      expect(qoute).toEqual(null);
     });
   });
   describe("get all quotes", () => {

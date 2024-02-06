@@ -8,6 +8,7 @@ export default class QuoteRespository implements IRepository<IQuote> {
   remove(id: string) {}
 
   async get(id: string): Promise<IQuote | null> {
+    if (!mongoose.isValidObjectId(id)) return null;
     const quote = await Quote.findById(id).lean().exec();
     return quote;
   }
