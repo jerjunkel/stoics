@@ -35,11 +35,10 @@ describe("Quote Service", () => {
     });
   });
 
-  describe("aggregation", () => {
+  describe("random quotes", () => {
     it("should return a random quote", async () => {
       mockRepoAggregateSpy.mockResolvedValue([mockQuote]);
       const quote = await sut.getARandomQuote();
-
       expect(quote).toMatchObject(mockQuote);
     });
   });
