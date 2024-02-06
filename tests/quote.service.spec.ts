@@ -84,7 +84,15 @@ describe("Quote Service", () => {
       expect(mockCurrentDayNumber()).toEqual(dayOfTheYear);
       expect(typeof dayOfTheYear).toEqual("number");
     });
-    it.todo("should return a quote with day of year");
+
+    it("should return a quote with day of year", async () => {
+      mockRepoFindSpy.mockResolvedValue([
+        { ...mockQuote, day: mockCurrentDayNumber() },
+      ]);
+      const quote = await sut.getTodaysQuote();
+      expect(quote?.day).toBe(mockCurrentDayNumber());
+    });
+
     it.todo("should set a quote if none found for today");
   });
 });

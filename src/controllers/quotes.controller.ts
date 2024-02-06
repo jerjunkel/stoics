@@ -18,7 +18,7 @@ const getAQuote = async (req: Request, res: Response) => {
 };
 
 const getTodayQuote = async (req: Request, res: Response) => {
-  const quote = await getDailyQuote();
+  const quote = await service.getTodaysQuote();
   return res.send(quote);
 };
 
