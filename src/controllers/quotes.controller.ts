@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { getRandomQuote, getDailyQuote } from "../utils/quotes.js";
+import { getDailyQuote } from "../utils/quotes.js";
 import QuoteService from "../services/quotes.service.js";
 import QuoteRespository from "../repositories/quotes.repository.js";
 
@@ -23,7 +23,7 @@ const getTodayQuote = async (req: Request, res: Response) => {
 };
 
 const getARandomQuote = async (req: Request, res: Response) => {
-  const quote = await getRandomQuote();
+  const quote = await service.getARandomQuote();
   res.send(quote);
 };
 
