@@ -21,4 +21,6 @@ export default class QuoteService implements IService<IQuote> {
     const quote = await this._repository.get(id);
     return quote;
   }
+
+  async getARandomQuote() {}
 }
