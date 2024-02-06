@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
-import Quote from "../interfaces/Quote.js";
+import Quote, { QuoteDocument } from "../interfaces/Quote.js";
 
-const schema = new Schema<Quote>({
+const schema = new Schema<QuoteDocument, Quote>({
   day: {
     type: Number,
     min: 1,
@@ -34,4 +34,4 @@ const schema = new Schema<Quote>({
   ],
 });
 
-export default model<Quote>("Quote", schema);
+export default model<QuoteDocument>("Quote", schema);

@@ -1,19 +1,20 @@
 import Quote from "../models/quotes.model.js";
 import { IRepository, IQuote } from "../interfaces/index.js";
+import { QuoteDocument } from "../interfaces/Quote.js";
 
 export default class QuoteRespository implements IRepository<IQuote> {
   add(element: IQuote) {}
 
   remove(id: string) {}
 
-  async get(id: string): Promise<IQuote | null> {
+  async get(id: string): Promise<QuoteDocument | null> {
     const quote = await Quote.findById(id).lean().exec();
-    return quote as IQuote;
+    return quote;
   }
 
-  async find(filter: {}): Promise<IQuote[]> {
+  async find(filter: {}): Promise<QuoteDocument[]> {
     const quotes = await Quote.find(filter).lean().populate("stoic", "name");
-    return quotes as IQuote[];
+    return quotes;
   }
 
   static async readAll(filter: {}) {
