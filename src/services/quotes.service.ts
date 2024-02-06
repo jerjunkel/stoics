@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { IQuote, IService } from "../interfaces/index.js";
 import QuoteRespository from "../repositories/quotes.repository.js";
 
