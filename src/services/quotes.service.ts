@@ -22,5 +22,8 @@ export default class QuoteService implements IService<IQuote> {
     return quote;
   }
 
-  async getARandomQuote() {}
+  async getARandomQuote(): Promise<IQuote> {
+    const quote = await this._repository.aggregate([{ $sample: { size: 1 } }]);
+    return quote[0];
+  }
 }

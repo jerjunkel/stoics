@@ -3,5 +3,5 @@ export default interface Stoic {
   name: string;
   bio: string;
   image: string;
-  quotes: [Quote];
+  // quotes: [Quote];
 }
