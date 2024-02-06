@@ -23,6 +23,16 @@ const mockQuote: IQuoteMockDTO = {
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const mockRepoGetOneSpy = jest.spyOn(mockRepo, "get");
+const mockCurrentDayNumber = () => {
+  const date = new Date();
+  return Math.floor(
+    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
+      1000 /
+      60 /
+      60 /
+      24
+  );
+};
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -66,5 +76,15 @@ describe("Quote Service", () => {
       const quote = await sut.getARandomQuote();
       expect(quote).toMatchObject(mockQuote);
     });
+  });
+
+  describe("daily quote", () => {
+    it("should return the current day number", () => {
+      const dayOfTheYear = sut.currentDayNumber;
+      expect(mockCurrentDayNumber()).toEqual(dayOfTheYear);
+      expect(typeof dayOfTheYear).toEqual("number");
+    });
+    it.todo("should return a quote with day of year");
+    it.todo("should set a quote if none found for today");
   });
 });

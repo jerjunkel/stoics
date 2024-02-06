@@ -12,6 +12,17 @@ export default class QuoteService implements IService<IQuote> {
     return this._repository;
   }
 
+  get currentDayNumber(): Number {
+    const date = new Date();
+    return Math.floor(
+      (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
+        1000 /
+        60 /
+        60 /
+        24
+    );
+  }
+
   async getAllQuotes(): Promise<IQuote[]> {
     const quotes = await this._repository.find({});
     return quotes;
