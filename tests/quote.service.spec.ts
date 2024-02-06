@@ -23,6 +23,7 @@ const mockQuote: IQuoteMockDTO = {
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const mockRepoGetOneSpy = jest.spyOn(mockRepo, "get");
+const mockRepoFindOneSpy = jest.spyOn(mockRepo, "findOne");
 const mockCurrentDayNumber = () => {
   const date = new Date();
   return Math.floor(
@@ -86,9 +87,10 @@ describe("Quote Service", () => {
     });
 
     it("should return a quote with day of year", async () => {
-      mockRepoFindSpy.mockResolvedValue([
-        { ...mockQuote, day: mockCurrentDayNumber() },
-      ]);
+      mockRepoFindOneSpy.mockResolvedValue({
+        ...mockQuote,
+        day: mockCurrentDayNumber(),
+      });
       const quote = await sut.getTodaysQuote();
       expect(quote?.day).toBe(mockCurrentDayNumber());
     });

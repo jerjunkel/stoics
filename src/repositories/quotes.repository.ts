@@ -18,6 +18,11 @@ export default class QuoteRespository implements IRepository<IQuote> {
     return quotes;
   }
 
+  async findOne(filter: FilterQuery<IQuote>): Promise<IQuote | null> {
+    const quote = await Quote.findOne(filter);
+    return quote;
+  }
+
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {
     const quotes = await Quote.aggregate(pipeline);
     return quotes;

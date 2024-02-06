@@ -38,8 +38,10 @@ export default class QuoteService implements IService<IQuote> {
     return quote[0];
   }
 
-  async getTodaysQuote(): Promise<IQuote> {
-    const quote = await this._repository.find({ day: this.currentDayNumber });
-    return quote[0];
+  async getTodaysQuote(): Promise<IQuote | null> {
+    const quote = await this._repository.findOne({
+      day: this.currentDayNumber,
+    });
+    return quote;
   }
 }
