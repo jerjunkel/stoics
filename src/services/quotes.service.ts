@@ -46,6 +46,9 @@ export default class QuoteService implements IService<IQuote> {
   }
 
   async setTodaysQuote(): Promise<IQuote> {
+    const quote = await this.getTodaysQuote();
+    if (quote) return quote;
+
     const results = await this._repository.aggregate([
       {
         $sample: { size: 1 },

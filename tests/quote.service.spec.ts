@@ -25,8 +25,9 @@ const mockRepoFindSpy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const mockRepoGetOneSpy = jest.spyOn(mockRepo, "get");
 const mockRepoFindOneSpy = jest.spyOn(mockRepo, "findOne");
-const mockRepoUpdateSpy = jest.spyOn(mockRepo, "update");
-const sutMockSetQuote = jest.spyOn(sut, "setTodaysQuote");
+const mockRepoUpdate = jest.spyOn(mockRepo, "update");
+const sutMockSetQOD = jest.spyOn(sut, "setTodaysQuote");
+const sutMockGetQOD = jest.spyOn(sut, "getTodaysQuote");
 const mockCurrentDayNumber = () => {
   const date = new Date();
   return Math.floor(
@@ -102,6 +103,14 @@ describe("Quote Service", () => {
       mockRepoFindOneSpy.mockResolvedValue(null);
       const quote = await sut.getTodaysQuote();
       expect(quote).toBe(null);
+    });
+
+    it("should check for a QOD before setting new one", async () => {
+      sutMockGetQOD.mockResolvedValue(null);
+      mockRepoUpdate.mockResolvedValue(true);
+      mockRepoAggregateSpy.mockResolvedValue([{ ...mockQuote }]);
+      await sut.setTodaysQuote();
+      expect(sutMockGetQOD).toHaveBeenCalled();
     });
   });
 });
