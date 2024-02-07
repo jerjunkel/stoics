@@ -1,8 +1,13 @@
-import { getDailyQuote } from "../utils/quotes.js";
 import { CronJob } from "cron";
-const onTick = () => {
-  getDailyQuote();
+import QuoteRespository from "../repositories/quotes.repository.js";
+import QuoteService from "../services/quotes.service.js";
+
+const service = new QuoteService(new QuoteRespository());
+
+const onTick = async () => {
+  await service.setTodaysQuote();
 };
+
 export default CronJob.from({
   cronTime: "0 1 * * *",
   onTick,
