@@ -12,7 +12,7 @@ export default class QuoteService implements IService<IQuote> {
     return this._repository;
   }
 
-  get currentDayNumber(): Number {
+  get currentDayNumber(): number {
     const date = new Date();
     return Math.floor(
       (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
@@ -39,9 +39,34 @@ export default class QuoteService implements IService<IQuote> {
   }
 
   async getTodaysQuote(): Promise<IQuote | null> {
-    const quote = await this._repository.findOne({
+    let quote: IQuote | null;
+
+    quote = await this._repository.findOne({
       day: this.currentDayNumber,
     });
+
+    if (quote == null) {
+      quote = await this.setTodaysQuote();
+    }
     return quote;
+  }
+
+  async setTodaysQuote(): Promise<IQuote> {
+    const results = await this._repository.aggregate([
+      {
+        $sample: { size: 1 },
+      },
+      { $match: { day: undefined } },
+    ]);
+
+    if (results.length == 0) throw new Error("No available quotes in database");
+    const random = results[0];
+    // Throw error if no quotes found
+    const updated = await this._repository.update(
+      { text: random.text },
+      { day: this.currentDayNumber }
+    );
+
+    return { ...random, day: this.currentDayNumber };
   }
 }

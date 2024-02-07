@@ -23,6 +23,14 @@ export default class QuoteRespository implements IRepository<IQuote> {
     return quote;
   }
 
+  async update(
+    filter: FilterQuery<IQuote>,
+    update: Partial<IQuote>
+  ): Promise<Boolean> {
+    const quote = await Quote.updateOne(filter, update, { new: true });
+    return quote.acknowledged;
+  }
+
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {
     const quotes = await Quote.aggregate(pipeline);
     return quotes;

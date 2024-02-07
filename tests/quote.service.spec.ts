@@ -2,6 +2,7 @@ import QuoteService from "../src/services/quotes.service";
 import QuoteRespository from "../src/repositories/quotes.repository";
 import { IQuote } from "../src/interfaces";
 import { ErrorHandlingMiddlewareFunction } from "mongoose";
+import { executionAsyncId } from "async_hooks";
 
 interface IQuoteMockDTO extends IQuote {
   id: string;
@@ -24,6 +25,8 @@ const mockRepoFindSpy = jest.spyOn(mockRepo, "find").mockResolvedValue([]);
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const mockRepoGetOneSpy = jest.spyOn(mockRepo, "get");
 const mockRepoFindOneSpy = jest.spyOn(mockRepo, "findOne");
+const mockRepoUpdateSpy = jest.spyOn(mockRepo, "update");
+const sutMockSetQuote = jest.spyOn(sut, "setTodaysQuote");
 const mockCurrentDayNumber = () => {
   const date = new Date();
   return Math.floor(
@@ -95,6 +98,15 @@ describe("Quote Service", () => {
       expect(quote?.day).toBe(mockCurrentDayNumber());
     });
 
-    it.todo("should set a quote if none found for today");
+    it("should set a quote if none found for today", async () => {
+      mockRepoFindOneSpy.mockResolvedValue(null);
+      mockRepoUpdateSpy.mockResolvedValue(true);
+      mockRepoAggregateSpy.mockResolvedValue([
+        { ...mockQuote, day: mockCurrentDayNumber() },
+      ]);
+      const quote = await sut.getTodaysQuote();
+      expect(sutMockSetQuote).toHaveBeenCalled();
+      expect(quote?.day).toBe(mockCurrentDayNumber());
+    });
   });
 });
