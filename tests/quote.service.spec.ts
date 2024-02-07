@@ -112,5 +112,14 @@ describe("Quote Service", () => {
       await sut.setTodaysQuote();
       expect(sutMockGetQOD).toHaveBeenCalled();
     });
+
+    it("should return a QOD if already set", async () => {
+      sutMockGetQOD.mockResolvedValue({
+        ...mockQuote,
+        day: mockCurrentDayNumber(),
+      });
+      const quote = await sut.setTodaysQuote();
+      expect(quote.day).toEqual(mockCurrentDayNumber());
+    });
   });
 });
