@@ -39,15 +39,9 @@ export default class QuoteService implements IService<IQuote> {
   }
 
   async getTodaysQuote(): Promise<IQuote | null> {
-    let quote: IQuote | null;
-
-    quote = await this._repository.findOne({
+    const quote = await this._repository.findOne({
       day: this.currentDayNumber,
     });
-
-    if (quote == null) {
-      quote = await this.setTodaysQuote();
-    }
     return quote;
   }
 
