@@ -98,15 +98,10 @@ describe("Quote Service", () => {
       expect(quote?.day).toBe(mockCurrentDayNumber());
     });
 
-    it("should set a quote if none found for today", async () => {
+    it("should return null if no quote is found", async () => {
       mockRepoFindOneSpy.mockResolvedValue(null);
-      mockRepoUpdateSpy.mockResolvedValue(true);
-      mockRepoAggregateSpy.mockResolvedValue([
-        { ...mockQuote, day: mockCurrentDayNumber() },
-      ]);
       const quote = await sut.getTodaysQuote();
-      expect(sutMockSetQuote).toHaveBeenCalled();
-      expect(quote?.day).toBe(mockCurrentDayNumber());
+      expect(quote).toBe(null);
     });
   });
 });
