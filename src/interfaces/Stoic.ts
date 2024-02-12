@@ -1,5 +1,5 @@
 import Quote from "./Quote.js";
-export default interface Stoic {
+export default interface IStoic {
   name: string;
   bio: string;
   image: string;

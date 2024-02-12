@@ -1,5 +1,5 @@
 export default interface IRepository<T> {
-  add(element: T): void;
+  create(element: T): Boolean;
   remove(id: string): void;
   get(id: string): Promise<T | null>;
   find(filter: {}): Promise<T[]>;
