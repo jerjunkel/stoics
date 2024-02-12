@@ -1,5 +1,4 @@
 import { Response, Request } from "express";
-import { getDailyQuote } from "../utils/quotes.js";
 import QuoteService from "../services/quotes.service.js";
 import QuoteRespository from "../repositories/quotes.repository.js";
 
@@ -26,16 +25,6 @@ const getARandomQuote = async (req: Request, res: Response) => {
   const quote = await service.getARandomQuote();
   res.send(quote);
 };
-
-function dayOfTheYear(date: Date) {
-  return Math.floor(
-    (date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) /
-      1000 /
-      60 /
-      60 /
-      24
-  );
-}
 
 export default {
   service,

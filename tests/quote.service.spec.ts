@@ -1,8 +1,6 @@
 import QuoteService from "../src/services/quotes.service";
 import QuoteRespository from "../src/repositories/quotes.repository";
 import { IQuote } from "../src/interfaces";
-import { ErrorHandlingMiddlewareFunction } from "mongoose";
-import { executionAsyncId } from "async_hooks";
 
 interface IQuoteMockDTO extends IQuote {
   id: string;
