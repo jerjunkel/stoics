@@ -15,7 +15,8 @@ export default class StoicRepository implements IRepository<IStoic> {
     const stoic = await Stoic.findById(id);
     return stoic;
   }
-  findAll(filter: {}): Promise<IStoic[]> {
-    throw new Error("Method not implemented.");
+  async findAll(filter: {}): Promise<IStoic[]> {
+    const stoics = await Stoic.find(filter);
+    return stoics;
   }
 }
