@@ -22,9 +22,10 @@ const stoics: IStoic[] = [
 ];
 
 describe("CREATE", () => {
-  it("should create a single stoic entry", async () => {
-    const create = await sut.create(stoics[0]);
-    expect(create).toEqual(true);
+  it("should return the created stoic entity", async () => {
+    const stoic = await sut.create(stoics[0]);
+    expect(stoic).toHaveProperty("id");
+    expect(stoic.name).toEqual(stoics[0].name);
   });
 
   it("should return false if error is throw", async () => {

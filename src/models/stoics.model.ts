@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
-import Stoic from "../interfaces/Stoic.js";
+import IStoic from "../interfaces/Stoic.js";
 
-const schema = new Schema<Stoic>({
+const schema = new Schema<IStoic>({
   name: {
     type: String,
     required: true,
@@ -15,4 +15,4 @@ const schema = new Schema<Stoic>({
   },
 });
 
-export default model<Stoic>("Stoic", schema);
+export default model<IStoic>("Stoic", schema);
