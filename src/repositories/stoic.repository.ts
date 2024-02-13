@@ -8,9 +8,7 @@ export default class StoicRepository implements IRepository<IStoic> {
     const id = stoic._id.toString();
     return { id, ...element };
   }
-  remove(id: string): void {
-    throw new Error("Method not implemented.");
-  }
+
   async find(id: string): Promise<IStoic | null> {
     const stoic = await Stoic.findById(id);
     return stoic;
@@ -18,5 +16,14 @@ export default class StoicRepository implements IRepository<IStoic> {
   async findAll(filter: {}): Promise<IStoic[]> {
     const stoics = await Stoic.find(filter);
     return stoics;
+  }
+
+  async delete(id: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
+  async update(id: string, update: Partial<IStoic>): Promise<IStoic | null> {
+    const stoic = await Stoic.findByIdAndUpdate(id, update);
+    return stoic;
   }
 }

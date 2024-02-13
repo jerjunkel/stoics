@@ -1,9 +1,8 @@
 import IStoic from "../src/interfaces/Stoic";
 import StoicRepository from "../src/repositories/stoic.repository";
 import db from "../src/config/db";
-import exp from "constants";
-const sut = new StoicRepository();
 
+const sut = new StoicRepository();
 const stoicMocks: IStoic[] = [
   {
     name: "Johnny Morron",
@@ -25,6 +24,11 @@ const stoicMocks: IStoic[] = [
     image: "https://marco-smart-pic.img",
     bio: "Some bio about the stoic",
   },
+  {
+    name: " Mary Jane",
+    image: "https://mary-jane-pic.img",
+    bio: "Some bio about the stoic",
+  },
 ];
 
 describe("CREATE", () => {
@@ -43,7 +47,7 @@ describe("CREATE", () => {
 });
 
 describe("READ", () => {
-  it("should return a stoic entity", async () => {
+  it("should return a stoic entity if found", async () => {
     const stoic = await sut.create(stoicMocks[2]);
 
     if (stoic.id) {
@@ -63,6 +67,23 @@ describe("READ", () => {
     expect(Array.isArray(stoics)).toEqual(true);
     expect(stoics[0].name).toBe(name);
   });
+});
+
+describe("UPDATE", () => {
+  it("should update stoic entity if found", async () => {
+    const stoic = await sut.create(stoicMocks[4]);
+    const modifiedStoic = await sut.update(stoic.id!, {
+      bio: "This is an update bio",
+    });
+    expect(modifiedStoic).not.toBeNull();
+    expect(stoic.id).toBe(modifiedStoic?.id);
+  });
+  it.todo("should return null if stoic entity not found");
+});
+
+describe("DELETE", () => {
+  it.todo("should delete stoic entity if found");
+  it.todo("should throw error if stoic entity not found");
 });
 
 beforeAll(async () => {
