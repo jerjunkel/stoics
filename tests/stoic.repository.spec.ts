@@ -78,7 +78,13 @@ describe("UPDATE", () => {
     expect(modifiedStoic).not.toBeNull();
     expect(stoic.id).toBe(modifiedStoic?.id);
   });
-  it.todo("should return null if stoic entity not found");
+
+  it("should return null if stoic entity is not found", async () => {
+    const stoic = await sut.update("658746c6e6916643c3e69503", {
+      name: "Unknown Stoic",
+    });
+    expect(stoic).toBeNull();
+  });
 });
 
 describe("DELETE", () => {
