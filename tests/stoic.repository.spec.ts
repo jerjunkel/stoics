@@ -1,7 +1,6 @@
 import IStoic from "../src/interfaces/Stoic";
 import StoicRepository from "../src/repositories/stoic.repository";
 import db from "../src/config/db";
-import { setuid } from "process";
 const sut = new StoicRepository();
 
 const stoics: IStoic[] = [
@@ -42,7 +41,7 @@ describe("READ", () => {
     const stoic = await sut.create(stoics[2]);
 
     if (stoic.id) {
-      const query = await sut.get(stoic?.id);
+      const query = await sut.find(stoic?.id);
       expect(query?.id).toBe(stoic.id);
     }
   });
