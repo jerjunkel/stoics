@@ -28,23 +28,19 @@ describe("CREATE", () => {
     expect(stoic.name).toEqual(stoics[0].name);
   });
 
-  it("should return false if error is throw", async () => {
-    const create1 = await sut.create(stoics[1]);
-    const create2 = await sut.create(stoics[1]);
-    expect(create1).toBe(true);
-    expect(create2).toBe(false);
+  it("should throw an error if duplicate record found ", async () => {
+    await sut.create(stoics[1]);
+    expect(async () => {
+      await sut.create(stoics[1]);
+    }).rejects.toThrow();
   });
 });
 
 beforeAll(async () => {
-  try {
-    await db.connect("mongodb://localhost:27017");
-  } catch (err) {
-    console.log(err);
-  }
+  await db.connect("mongodb://localhost:27017");
+  await db.dropCollection("stoics");
 });
 
 afterAll(async () => {
-  await db.dropCollection("stoics");
   await db.disconnect();
 });
