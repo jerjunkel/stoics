@@ -4,8 +4,12 @@ import Stoic from "../models/stoics.model.js";
 
 export default class StoicRepository implements IRepository<IStoic> {
   async create(element: IStoic): Promise<Boolean> {
-    const stoic = await Stoic.create(element);
-    return stoic != null ? true : false;
+    try {
+      const created = await Stoic.create(element);
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
   remove(id: string): void {
     throw new Error("Method not implemented.");
