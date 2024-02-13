@@ -1,6 +1,7 @@
 import IStoic from "../src/interfaces/Stoic";
 import StoicRepository from "../src/repositories/stoic.repository";
 import db from "../src/config/db";
+import { setuid } from "process";
 const sut = new StoicRepository();
 
 const stoics: IStoic[] = [
@@ -36,11 +37,22 @@ describe("CREATE", () => {
   });
 });
 
+describe("READ", () => {
+  it("should return a stoic entity", async () => {
+    const stoic = await sut.create(stoics[2]);
+
+    if (stoic.id) {
+      const query = await sut.get(stoic?.id);
+      expect(query?.id).toBe(stoic.id);
+    }
+  });
+});
+
 beforeAll(async () => {
   await db.connect("mongodb://localhost:27017");
-  await db.dropCollection("stoics");
 });
 
 afterAll(async () => {
+  await db.dropCollection("stoics");
   await db.disconnect();
 });

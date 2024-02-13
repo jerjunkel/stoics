@@ -11,8 +11,9 @@ export default class StoicRepository implements IRepository<IStoic> {
   remove(id: string): void {
     throw new Error("Method not implemented.");
   }
-  get(id: string): Promise<IStoic | null> {
-    throw new Error("Method not implemented.");
+  async get(id: string): Promise<IStoic | null> {
+    const stoic = await Stoic.findById(id);
+    return stoic;
   }
   find(filter: {}): Promise<IStoic[]> {
     throw new Error("Method not implemented.");
