@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const connect = async (uri: string) => {
   const dbConnInstance = await mongoose.connect(uri);
@@ -6,11 +6,15 @@ const connect = async (uri: string) => {
 };
 
 const disconnect = async () => {
-  mongoose.connection.close();
+  await mongoose.connection.close();
+};
+
+const dropCollection = async (collection: "stoics" | "quotes") => {
+  await mongoose.connection.dropCollection(collection);
 };
 
 const drop = async () => {
-  mongoose.connection.dropDatabase();
+  await mongoose.connection.dropDatabase();
 };
 
-export default { connect, disconnect, drop };
+export default { connect, disconnect, drop, dropCollection };
