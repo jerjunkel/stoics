@@ -52,6 +52,11 @@ describe("READ", () => {
     }
   });
 
+  it("should return null if no stoic is found", async () => {
+    const stoic = await sut.find("658746c6e6916643c3e69503");
+    expect(stoic).toBeNull();
+  });
+
   it("should return array of stoic entities", async () => {
     const { name } = await sut.create(stoicMocks[3]);
     const stoics = await sut.findAll({ name });
