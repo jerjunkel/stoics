@@ -18,8 +18,9 @@ export default class StoicRepository implements IRepository<IStoic> {
     return stoics;
   }
 
-  async delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<Boolean> {
+    const deleted = await Stoic.findByIdAndDelete(id);
+    return deleted ? true : false;
   }
 
   async update(id: string, update: Partial<IStoic>): Promise<IStoic | null> {

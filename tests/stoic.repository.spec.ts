@@ -29,6 +29,11 @@ const stoicMocks: IStoic[] = [
     image: "https://mary-jane-pic.img",
     bio: "Some bio about the stoic",
   },
+  {
+    name: "Deleted Stoic",
+    image: "https://delete-stoic-pic.img",
+    bio: "Some bio about the stoic",
+  },
 ];
 
 describe("CREATE", () => {
@@ -79,7 +84,7 @@ describe("UPDATE", () => {
     expect(stoic.id).toBe(modifiedStoic?.id);
   });
 
-  it("should return null if stoic entity is not found", async () => {
+  it("should return null if no stoic entity is found", async () => {
     const stoic = await sut.update("658746c6e6916643c3e69503", {
       name: "Unknown Stoic",
     });
@@ -88,7 +93,11 @@ describe("UPDATE", () => {
 });
 
 describe("DELETE", () => {
-  it.todo("should delete stoic entity if found");
+  it("should delete stoic entity if found", async () => {
+    const createdStoic = await sut.create(stoicMocks[5]);
+    const deleted = await sut.delete(createdStoic.id!);
+    expect(deleted).toBe(true);
+  });
   it.todo("should throw error if stoic entity not found");
 });
 
