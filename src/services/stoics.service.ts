@@ -12,4 +12,8 @@ export default class StoicsService implements IService<IStoic> {
   async findStoicByID(id: string): Promise<IStoic | null> {
     return this._repository.find(id);
   }
+
+  async getAllStoics(): Promise<IStoic[]> {
+    return this._repository.findAll({});
+  }
 }
