@@ -46,9 +46,13 @@ describe("Stoic Service", () => {
     expect(stoic).not.toBeNull();
     expect(stoic?.id).toBe(stoicMocks[0].id);
   });
+  it("should return null if no stoic is found", async () => {
+    mockRepoFindSpy.mockResolvedValue(null);
+    const stoic = await sut.findStoicByID("658746c6e6916643c3e69503");
+    expect(stoic).toBeNull();
+  });
   it.todo("should should update a stoic by id");
   it.todo("should delete a stoic by id");
-  it.todo("should return null if no stoic is found");
   it.todo("should find stoics by name");
   it.todo("should return a stoic and their quotes");
   it.todo("should return an empty array if nothing is found");
