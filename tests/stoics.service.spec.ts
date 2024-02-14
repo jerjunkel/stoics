@@ -54,7 +54,7 @@ describe("Stoic Service", () => {
     expect(stoic).toBeNull();
   });
 
-  it("should return an array of stoics", async () => {
+  it("should return all stoics", async () => {
     mockRepoFindAllSpy.mockResolvedValue([]);
     const stoics = await sut.getAllStoics();
     expect(Array.isArray(stoics)).toBe(true);
