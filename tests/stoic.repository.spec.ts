@@ -35,6 +35,7 @@ const stoicMocks: IStoic[] = [
     bio: "Some bio about the stoic",
   },
 ];
+const mockID = "658746c6e6916643c3e69503";
 
 describe("CREATE", () => {
   it("should return the created stoic entity", async () => {
@@ -62,7 +63,7 @@ describe("READ", () => {
   });
 
   it("should return null if no stoic is found", async () => {
-    const stoic = await sut.find("658746c6e6916643c3e69503");
+    const stoic = await sut.find(mockID);
     expect(stoic).toBeNull();
   });
 
@@ -85,7 +86,7 @@ describe("UPDATE", () => {
   });
 
   it("should return null if no stoic entity is found", async () => {
-    const stoic = await sut.update("658746c6e6916643c3e69503", {
+    const stoic = await sut.update(mockID, {
       name: "Unknown Stoic",
     });
     expect(stoic).toBeNull();
@@ -100,7 +101,7 @@ describe("DELETE", () => {
   });
 
   it("should return false if no stoic entity is found", async () => {
-    const deleted = await sut.delete("658746c6e6916643c3e69503");
+    const deleted = await sut.delete(mockID);
     expect(deleted).toBe(false);
   });
 });
