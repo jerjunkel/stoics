@@ -98,7 +98,11 @@ describe("DELETE", () => {
     const deleted = await sut.delete(createdStoic.id!);
     expect(deleted).toBe(true);
   });
-  it.todo("should throw error if stoic entity not found");
+
+  it("should return false if no stoic entity is found", async () => {
+    const deleted = await sut.delete("658746c6e6916643c3e69503");
+    expect(deleted).toBe(false);
+  });
 });
 
 beforeAll(async () => {

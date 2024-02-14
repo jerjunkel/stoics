@@ -20,6 +20,7 @@ export default class StoicRepository implements IRepository<IStoic> {
 
   async delete(id: string): Promise<Boolean> {
     const deleted = await Stoic.findByIdAndDelete(id);
+    console.log(deleted);
     return deleted ? true : false;
   }
 
