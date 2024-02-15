@@ -81,6 +81,13 @@ describe("Stoic Service", () => {
     expect(Array.isArray(stoics)).toBe(true);
   });
 
+  it("should return an empty array if nothing is found", async () => {
+    mockRepoFindAllSpy.mockResolvedValue([]);
+    const stoics = await sut.findStoicByName("Mary Poppin");
+    expect(Array.isArray(stoics)).toBe(true);
+    expect(stoics.length).toBe(0);
+  });
+
   it("should should update a stoic by id", async () => {
     mockRepoUpdateSpy.mockResolvedValue(stoicMocks[0]);
     const newStoic = await sut.updateStoicByID(stoicID, {
@@ -96,5 +103,4 @@ describe("Stoic Service", () => {
   });
 
   it.todo("should return a stoic and their quotes");
-  it.todo("should return an empty array if nothing is found");
 });
