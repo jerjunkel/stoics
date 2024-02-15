@@ -23,4 +23,7 @@ export default class StoicsService implements IService<IStoic> {
   ): Promise<IStoic | null> {
     return this._repository.update(id, update);
   }
+  async deleteStoicByID(id: string): Promise<Boolean> {
+    return true;
+  }
 }

@@ -40,18 +40,19 @@ const stoicMocks: IStoic[] = [
     bio: "Some bio about the stoic",
   },
 ];
+const stoicID = "658746c6e6916643c3e69503";
 
 describe("Stoic Service", () => {
   it("should find a stoic by id", async () => {
     mockRepoFindSpy.mockResolvedValue(stoicMocks[0]);
-    const stoic = await sut.findStoicByID("658746c6e6916643c3e69503");
+    const stoic = await sut.findStoicByID(stoicID);
     expect(stoic).not.toBeNull();
     expect(stoic?.id).toBe(stoicMocks[0].id);
   });
 
   it("should return null if no stoic is found", async () => {
     mockRepoFindSpy.mockResolvedValue(null);
-    const stoic = await sut.findStoicByID("658746c6e6916643c3e69503");
+    const stoic = await sut.findStoicByID(stoicID);
     expect(stoic).toBeNull();
   });
 
@@ -63,12 +64,17 @@ describe("Stoic Service", () => {
 
   it("should should update a stoic by id", async () => {
     mockRepoUpdate.mockResolvedValue(stoicMocks[0]);
-    const newStoic = await sut.updateStoicByID("658746c6e6916643c3e69503", {
+    const newStoic = await sut.updateStoicByID(stoicID, {
       name: "Johnny Morron",
     });
     expect(newStoic!.name).toBe("Johnny Morron");
   });
-  it.todo("should delete a stoic by id");
+
+  it("should delete a stoic by id", async () => {
+    const acknowledge = await sut.deleteStoicByID(stoicID);
+    expect(acknowledge).toBe(true);
+  });
+
   it.todo("should return a stoic and their quotes");
   it.todo("should return an empty array if nothing is found");
 });
