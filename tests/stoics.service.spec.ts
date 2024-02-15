@@ -6,6 +6,7 @@ const mockRepo = new StoicRepository();
 const sut = new StoicsService(mockRepo);
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find");
 const mockRepoFindAllSpy = jest.spyOn(mockRepo, "findAll");
+const mockRepoUpdate = jest.spyOn(mockRepo, "update");
 const stoicMocks: IStoic[] = [
   {
     id: "658746c6e6916643c3e69503",
@@ -60,7 +61,13 @@ describe("Stoic Service", () => {
     expect(Array.isArray(stoics)).toBe(true);
   });
 
-  it.todo("should should update a stoic by id");
+  it("should should update a stoic by id", async () => {
+    mockRepoUpdate.mockResolvedValue(stoicMocks[0]);
+    const newStoic = await sut.updateStoicByID("658746c6e6916643c3e69503", {
+      name: "Johnny Morron",
+    });
+    expect(newStoic!.name).toBe("Johnny Morron");
+  });
   it.todo("should delete a stoic by id");
   it.todo("should return a stoic and their quotes");
   it.todo("should return an empty array if nothing is found");
