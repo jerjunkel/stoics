@@ -7,6 +7,7 @@ const sut = new StoicsService(mockRepo);
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find");
 const mockRepoFindAllSpy = jest.spyOn(mockRepo, "findAll");
 const mockRepoUpdate = jest.spyOn(mockRepo, "update");
+const mockRepoDelete = jest.spyOn(mockRepo, "delete");
 const stoicMocks: IStoic[] = [
   {
     id: "658746c6e6916643c3e69503",
@@ -71,6 +72,7 @@ describe("Stoic Service", () => {
   });
 
   it("should delete a stoic by id", async () => {
+    mockRepoDelete.mockResolvedValue(true);
     const acknowledge = await sut.deleteStoicByID(stoicID);
     expect(acknowledge).toBe(true);
   });
