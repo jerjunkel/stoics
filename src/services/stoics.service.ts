@@ -1,6 +1,7 @@
 import IService from "../interfaces/Service.js";
 import IStoic from "../interfaces/Stoic.js";
 import StoicRepository from "../repositories/stoic.repository.js";
+import { isValidObjectID } from "../utils/db.js";
 
 export default class StoicsService implements IService<IStoic> {
   constructor(private _repository: StoicRepository) {}
@@ -12,7 +13,9 @@ export default class StoicsService implements IService<IStoic> {
   async addNewStoic(data: IStoic): Promise<IStoic> {
     return this._repository.create(data);
   }
+
   async findStoicByID(id: string): Promise<IStoic | null> {
+    if (!isValidObjectID(id)) throw new Error("Invalid id");
     return this._repository.find(id);
   }
 

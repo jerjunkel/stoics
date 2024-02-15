@@ -69,6 +69,12 @@ describe("Stoic Service", () => {
     expect(stoic?.id).toBe(stoicMocks[0].id);
   });
 
+  it("should throw error if ID is invalid", async () => {
+    expect(async () => {
+      await sut.findStoicByID("123");
+    }).rejects.toThrow();
+  });
+
   it("should return null if no stoic is found", async () => {
     mockRepoFindSpy.mockResolvedValue(null);
     const stoic = await sut.findStoicByID(stoicID);
