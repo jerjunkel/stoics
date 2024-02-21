@@ -1,16 +1,10 @@
 import QuoteRepository from "../src/repositories/quotes.repository";
-import db from "../src/config/db";
-import { Types } from "mongoose";
 import { IQuote } from "../src/interfaces";
+import db from "../src/config/db";
+import mockData from "./mock-data";
 const sut = new QuoteRepository();
 
-const mockQuote: IQuote = {
-  text: "Waste no more time arguing what a good man should be. Be One.",
-  source: "n/a",
-  tags: [],
-  stoic: new Types.ObjectId(),
-  flag: true,
-};
+const mockQuote: IQuote = mockData.quotes[0];
 
 describe("CREATE", () => {
   it("should create a single quote", async () => {
