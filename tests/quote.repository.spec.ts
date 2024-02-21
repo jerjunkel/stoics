@@ -1,10 +1,10 @@
 import QuoteRepository from "../src/repositories/quotes.repository";
 import { IQuote } from "../src/interfaces";
 import db from "../src/config/db";
-import mockData from "./mock-data";
+import sample from "./mock-samples";
 const sut = new QuoteRepository();
 
-const mockQuote: IQuote = mockData.quotes[0];
+const mockQuote: IQuote = sample.quote;
 
 describe("CREATE", () => {
   it("should create a single quote", async () => {
