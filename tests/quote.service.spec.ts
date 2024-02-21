@@ -10,6 +10,7 @@ const mockRepoUpdate = jest.spyOn(mockRepo, "update");
 const mockRepoFindAllSpy = jest
   .spyOn(mockRepo, "findAll")
   .mockResolvedValue([]);
+
 const mockRepoAggregateSpy = jest.spyOn(mockRepo, "aggregate");
 const sutMockSetQOD = jest.spyOn(sut, "setTodaysQuote");
 const sutMockGetQOD = jest.spyOn(sut, "getTodaysQuote");
@@ -107,6 +108,23 @@ describe("Quote Service", () => {
       });
       const quote = await sut.setTodaysQuote();
       expect(quote.day).toEqual(mockCurrentDayNumber());
+    });
+
+    it("should return true if QOD is set", async () => {
+      mockRepoFindAllSpy.mockResolvedValue([
+        {
+          ...mockQuote,
+          day: mockCurrentDayNumber(),
+        },
+      ]);
+      const isTodayQuoteSet = await sut.isTodayQuoteSet();
+      expect(isTodayQuoteSet).toBe(true);
+    });
+
+    it("should return false if QOD is not set", async () => {
+      mockRepoFindAllSpy.mockResolvedValue([]);
+      const isTodayQuoteSet = await sut.isTodayQuoteSet();
+      expect(isTodayQuoteSet).toBe(false);
     });
   });
 });

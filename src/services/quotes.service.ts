@@ -66,4 +66,11 @@ export default class QuoteService implements IService<IQuote> {
 
     return { ...random, day: this.currentDayNumber };
   }
+
+  async isTodayQuoteSet(): Promise<Boolean> {
+    const results = await this._repository.findAll({
+      day: this.currentDayNumber,
+    });
+    return results.length == 0 ? false : true;
+  }
 }
