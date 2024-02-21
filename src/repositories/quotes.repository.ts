@@ -3,32 +3,37 @@ import { IRepository, IQuote } from "../interfaces/index.js";
 import { PipelineStage, FilterQuery, isValidObjectId } from "mongoose";
 
 export default class QuoteRespository implements IRepository<IQuote> {
-  add(element: IQuote) {}
+  async create(element: IQuote): Promise<IQuote> {
+    const quote = await Quote.create(element);
+    const id = quote._id.toString();
+    return { id, ...element };
+  }
 
-  remove(id: string) {}
-
-  async get(id: string): Promise<IQuote | null> {
+  async find(id: string): Promise<IQuote | null> {
     if (!isValidObjectId(id)) return null;
     const quote = await Quote.findById(id).lean().exec();
     return quote;
   }
 
-  async find(filter: FilterQuery<IQuote>): Promise<IQuote[]> {
+  async findAll(filter: FilterQuery<IQuote>): Promise<IQuote[]> {
     const quotes = await Quote.find(filter).lean().populate("stoic", "name");
     return quotes;
   }
 
-  async findOne(filter: FilterQuery<IQuote>): Promise<IQuote | null> {
-    const quote = await Quote.findOne(filter);
-    return quote;
+  // async update(
+  //   filter: FilterQuery<IQuote>,
+  //   update: Partial<IQuote>
+  // ): Promise<Boolean> {
+  //   const quote = await Quote.updateOne(filter, update, { new: true });
+  //   return quote.acknowledged;
+  // }
+
+  async update(id: string, update: Partial<IQuote>): Promise<IQuote | null> {
+    return null;
   }
 
-  async update(
-    filter: FilterQuery<IQuote>,
-    update: Partial<IQuote>
-  ): Promise<Boolean> {
-    const quote = await Quote.updateOne(filter, update, { new: true });
-    return quote.acknowledged;
+  async delete(id: string): Promise<Boolean> {
+    return false;
   }
 
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {

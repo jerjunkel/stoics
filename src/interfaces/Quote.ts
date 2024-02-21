@@ -1,14 +1,12 @@
-import { Document } from "mongoose";
-import Stoic from "./Stoic.js";
+import { Types } from "mongoose";
 import Tag from "./Tag.js";
 
 export default interface IQuote {
-  stoic: Stoic;
+  id?: string;
+  stoic: Types.ObjectId;
   text: string;
   day?: number;
   source: string;
-  tags: [Tag];
+  tags: Tag[];
   flag: boolean;
 }
-
-export interface QuoteDocument extends IQuote, Document {}

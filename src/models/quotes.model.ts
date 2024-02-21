@@ -8,7 +8,7 @@ const schema = new Schema<IQuote>({
     max: 366,
   },
   stoic: {
-    type: Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "Stoic",
     required: true,
   },
@@ -28,7 +28,7 @@ const schema = new Schema<IQuote>({
   },
   tags: [
     {
-      type: Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Tag",
     },
   ],
