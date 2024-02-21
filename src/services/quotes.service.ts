@@ -24,12 +24,12 @@ export default class QuoteService implements IService<IQuote> {
   }
 
   async getAllQuotes(): Promise<IQuote[]> {
-    const quotes = await this._repository.find({});
+    const quotes = await this._repository.findAll({});
     return quotes;
   }
 
   async getAQuoteByID(id: string) {
-    const quote = await this._repository.get(id);
+    const quote = await this._repository.find(id);
     return quote;
   }
 
@@ -39,10 +39,10 @@ export default class QuoteService implements IService<IQuote> {
   }
 
   async getTodaysQuote(): Promise<IQuote | null> {
-    const quote = await this._repository.findOne({
+    const results = await this._repository.findAll({
       day: this.currentDayNumber,
     });
-    return quote;
+    return results.length == 0 ? null : results[0];
   }
 
   async setTodaysQuote(): Promise<IQuote> {
@@ -59,10 +59,10 @@ export default class QuoteService implements IService<IQuote> {
     if (results.length == 0) throw new Error("No available quotes in database");
     const random = results[0];
     // Throw error if no quotes found
-    const updated = await this._repository.update(
-      { text: random.text },
-      { day: this.currentDayNumber }
-    );
+    const update = await this._repository.update(random.id!.toString(), {
+      text: random.text,
+      day: this.currentDayNumber,
+    });
 
     return { ...random, day: this.currentDayNumber };
   }

@@ -5,7 +5,7 @@ import { PipelineStage, FilterQuery, isValidObjectId } from "mongoose";
 export default class QuoteRespository implements IRepository<IQuote> {
   async create(element: IQuote): Promise<IQuote> {
     const quote = await Quote.create(element);
-    const id = quote._id.toString();
+    const id = quote._id;
     return { id, ...element };
   }
 
