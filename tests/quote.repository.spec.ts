@@ -41,6 +41,18 @@ describe("READ Quotes from DB", () => {
     });
   });
 });
+describe("UPDATE", () => {
+  it("should update a single quote by id", async () => {
+    const updates: Partial<IQuote> = { text: "Foo is bar and bar is foo foo" };
+    const newQuote = await sut.create(mockQuote);
+    const updatedQuote = await sut.update(newQuote.id!, updates);
+
+    expect(updatedQuote).not.toBeNull();
+    expect(newQuote.id).toBe(updatedQuote?.id);
+    expect(updatedQuote?.text).toBe(updates.text);
+  });
+  it.todo("should return null if no quote is found");
+});
 
 beforeAll(async () => {
   await db.connect("mongodb://localhost:27017");

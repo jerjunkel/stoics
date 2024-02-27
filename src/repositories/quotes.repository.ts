@@ -29,7 +29,8 @@ export default class QuoteRespository implements IRepository<IQuote> {
   // }
 
   async update(id: string, update: Partial<IQuote>): Promise<IQuote | null> {
-    return null;
+    const doc = await Quote.findByIdAndUpdate(id, update, { new: true });
+    return doc?.toObject() as IQuote;
   }
 
   async delete(id: string): Promise<Boolean> {
