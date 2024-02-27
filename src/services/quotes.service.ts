@@ -83,6 +83,6 @@ export default class QuoteService implements IService<IQuote> {
     const results = await this._repository.findAll({
       day: this.currentDayNumber,
     });
-    return results.length == 0 ? false : true;
+    return results.length > 0;
   }
 }
