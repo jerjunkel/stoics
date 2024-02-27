@@ -15,8 +15,8 @@ describe("CREATE", () => {
   });
 });
 
-describe("READ Quotes from DB", () => {
-  describe("Single quote", () => {
+describe("READ", () => {
+  describe("Find a single quote", () => {
     it("should return a single quote", async () => {
       const createQuoted = await sut.create(mockQuote);
       const quote = await sut.find(createQuoted.id!);
@@ -27,16 +27,18 @@ describe("READ Quotes from DB", () => {
       expect(createQuoted.text).toBe(quote?.text);
     });
 
-    it("should return null if quote is not found", async () => {
+    it("should return null if quote not found", async () => {
       const quote = await sut.find(mockID());
       expect(quote).toBeNull();
     });
 
     it("should return null if ID is invalid", async () => {
-      const quote = await sut.find(mockID());
+      const quote = await sut.find("foobar");
       expect(quote).toBeNull();
     });
+  });
 
+  describe("Find multiple quotes", () => {
     it("should return an array of quotes", async () => {
       await sut.create(mockQuote);
       await sut.create(mockQuote);
@@ -59,7 +61,7 @@ describe("UPDATE", () => {
     expect(updatedQuote?.text).toBe(updates.text);
   });
 
-  it("should return null if no quote is found", async () => {
+  it("should return null if quote not found", async () => {
     const quote = await sut.update(mockID(), {
       text: "Foo is not bar",
     });
@@ -67,7 +69,7 @@ describe("UPDATE", () => {
   });
 
   it("should return null ID is invalid", async () => {
-    const quote = await sut.update(mockID(), { text: "Foo is not bar" });
+    const quote = await sut.update("foobar", { text: "Foo is not bar" });
     expect(quote).toBeNull();
   });
 });
