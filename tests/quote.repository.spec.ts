@@ -30,11 +30,24 @@ describe("READ Quotes from DB", () => {
       const quote = await sut.find(mockQuote.id!);
       expect(quote).toBeNull();
     });
+
+    it("should return an array of quotes", async () => {
+      await sut.create(mockQuote);
+      await sut.create(mockQuote);
+      const quotes = await sut.findAll({});
+
+      expect(Array.isArray(quotes)).toBe(true);
+      expect(quotes.length).toBe(2);
+    });
   });
 });
 
 beforeAll(async () => {
   await db.connect("mongodb://localhost:27017");
+});
+
+beforeEach(async () => {
+  await db.dropCollection("quotes");
 });
 
 afterAll(async () => {

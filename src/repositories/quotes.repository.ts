@@ -16,8 +16,8 @@ export default class QuoteRespository implements IRepository<IQuote> {
   }
 
   async findAll(filter: FilterQuery<IQuote>): Promise<IQuote[]> {
-    const quotes = await Quote.find(filter).lean().populate("stoic", "name");
-    return quotes;
+    const quotes = await Quote.find(filter);
+    return quotes.map((quote) => quote.toObject());
   }
 
   // async update(
