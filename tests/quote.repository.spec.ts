@@ -16,8 +16,16 @@ describe("CREATE", () => {
 
 describe("READ Quotes from DB", () => {
   describe("Single quote", () => {
-    it.todo("should return a single quote");
-    it.todo("should return null if ");
+    it("should return a single quote", async () => {
+      const createQuoted = await sut.create(mockQuote);
+      const quote = await sut.find(createQuoted.id!);
+
+      expect(quote).not.toBeNull();
+      expect(quote).toHaveProperty("id");
+      expect(createQuoted.id).toBe(quote?.id);
+      expect(createQuoted.text).toBe(quote?.text);
+    });
+    it.todo("should return null if quote is not found");
   });
 });
 

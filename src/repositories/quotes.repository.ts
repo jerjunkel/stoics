@@ -5,14 +5,14 @@ import { PipelineStage, FilterQuery, isValidObjectId } from "mongoose";
 export default class QuoteRespository implements IRepository<IQuote> {
   async create(element: IQuote): Promise<IQuote> {
     const quote = await Quote.create(element);
-    const id = quote._id;
+    const id = quote.id;
     return { id, ...element };
   }
 
   async find(id: string): Promise<IQuote | null> {
     if (!isValidObjectId(id)) return null;
-    const quote = await Quote.findById(id).lean().exec();
-    return quote;
+    const doc = await Quote.findById(id);
+    return doc?.toObject() as IQuote;
   }
 
   async findAll(filter: FilterQuery<IQuote>): Promise<IQuote[]> {
@@ -37,7 +37,7 @@ export default class QuoteRespository implements IRepository<IQuote> {
   }
 
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {
-    const quotes = await Quote.aggregate(pipeline);
+    const quotes: IQuote[] = await Quote.aggregate(pipeline);
     return quotes;
   }
 }

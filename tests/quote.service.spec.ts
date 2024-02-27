@@ -87,14 +87,7 @@ describe("Quote Service", () => {
       expect(quote?.day).toBe(mockCurrentDayNumber());
     });
 
-    it("should return null if no quote is found", async () => {
-      mockRepoFindAllSpy.mockResolvedValue([]);
-      const quote = await sut.getTodaysQuote();
-      expect(quote).toBe(null);
-    });
-
     it("should check for a QOD before setting new one", async () => {
-      sutMockGetQOD.mockResolvedValue(null);
       mockRepoUpdate.mockResolvedValue(mockQuote);
       mockRepoAggregateSpy.mockResolvedValue([{ ...mockQuote }]);
       await sut.setTodaysQuote();

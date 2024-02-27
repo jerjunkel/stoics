@@ -2,7 +2,7 @@ import { Types } from "mongoose";
 import Tag from "./Tag.js";
 
 export default interface IQuote {
-  id?: Types.ObjectId;
+  id?: string;
   stoic: Types.ObjectId;
   text: string;
   day?: number;
