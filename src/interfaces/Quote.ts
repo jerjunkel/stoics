@@ -8,5 +8,4 @@ export default interface IQuote {
   day?: number;
   source: string;
   tags: Tag[];
-  flag: boolean;
 }

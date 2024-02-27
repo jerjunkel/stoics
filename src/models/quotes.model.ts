@@ -17,11 +17,6 @@ const schema = new Schema(
       type: String,
       required: true,
     },
-    flag: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
     source: {
       type: String,
       default: "n/a",
