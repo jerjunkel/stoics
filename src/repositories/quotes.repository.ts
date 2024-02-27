@@ -35,6 +35,7 @@ export default class QuoteRespository implements IRepository<IQuote> {
   }
 
   async delete(id: string): Promise<Boolean> {
+    if (!isValidObjectId(id)) return false;
     const success = await Quote.findByIdAndDelete(id);
     return success ? true : false;
   }

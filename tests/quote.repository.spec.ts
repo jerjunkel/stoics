@@ -79,8 +79,15 @@ describe("DELETE", () => {
 
     expect(success).toBe(true);
   });
-  it.todo("should return false if quote not found");
-  it.todo("should return false if ID is invalid");
+  it("should return false if quote not found", async () => {
+    const success = await sut.delete(mockID());
+    expect(success).toBe(false);
+  });
+
+  it("should return false if ID is invalid", async () => {
+    const success = await sut.delete("foobar");
+    expect(success).toBe(false);
+  });
 });
 
 beforeAll(async () => {
