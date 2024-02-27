@@ -4,7 +4,7 @@ import samples from "../mock-samples";
 
 const mockRepo = new QuoteRespository();
 const sut = new QuoteService(mockRepo);
-const mockQuote = samples.quote;
+const mockQuote = samples.quoteWithID;
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find");
 const mockRepoUpdate = jest.spyOn(mockRepo, "update");
 const mockRepoFindAllSpy = jest
