@@ -25,7 +25,11 @@ describe("READ Quotes from DB", () => {
       expect(createQuoted.id).toBe(quote?.id);
       expect(createQuoted.text).toBe(quote?.text);
     });
-    it.todo("should return null if quote is not found");
+
+    it("should return null if quote is not found", async () => {
+      const quote = await sut.find(mockQuote.id!);
+      expect(quote).toBeNull();
+    });
   });
 });
 
