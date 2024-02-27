@@ -35,7 +35,8 @@ export default class QuoteRespository implements IRepository<IQuote> {
   }
 
   async delete(id: string): Promise<Boolean> {
-    return false;
+    const success = await Quote.findByIdAndDelete(id);
+    return success ? true : false;
   }
 
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {

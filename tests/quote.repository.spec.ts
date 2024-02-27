@@ -47,6 +47,7 @@ describe("READ Quotes from DB", () => {
     });
   });
 });
+
 describe("UPDATE", () => {
   it("should update a single quote by id", async () => {
     const updates: Partial<IQuote> = { text: "Foo is bar and bar is foo foo" };
@@ -69,6 +70,17 @@ describe("UPDATE", () => {
     const quote = await sut.update(mockID(), { text: "Foo is not bar" });
     expect(quote).toBeNull();
   });
+});
+
+describe("DELETE", () => {
+  it("should delete a quote by ID", async () => {
+    const quote = await sut.create(mockQuote);
+    const success = await sut.delete(quote.id!);
+
+    expect(success).toBe(true);
+  });
+  it.todo("should return false if quote not found");
+  it.todo("should return false if ID is invalid");
 });
 
 beforeAll(async () => {
