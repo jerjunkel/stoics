@@ -51,7 +51,17 @@ describe("UPDATE", () => {
     expect(newQuote.id).toBe(updatedQuote?.id);
     expect(updatedQuote?.text).toBe(updates.text);
   });
-  it.todo("should return null if no quote is found");
+  it("should return null if no quote is found", async () => {
+    const quote = await sut.update("658746c5e6916643c3e694a7", {
+      text: "Foo is not bar",
+    });
+    expect(quote).toBeNull();
+  });
+
+  it("should return null ID is invalid", async () => {
+    const quote = await sut.update("1234", { text: "Foo is not bar" });
+    expect(quote).toBeNull();
+  });
 });
 
 beforeAll(async () => {
