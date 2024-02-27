@@ -20,14 +20,6 @@ export default class QuoteRespository implements IRepository<IQuote> {
     return quotes.map((quote) => quote.toObject());
   }
 
-  // async update(
-  //   filter: FilterQuery<IQuote>,
-  //   update: Partial<IQuote>
-  // ): Promise<Boolean> {
-  //   const quote = await Quote.updateOne(filter, update, { new: true });
-  //   return quote.acknowledged;
-  // }
-
   async update(id: string, update: Partial<IQuote>): Promise<IQuote | null> {
     if (!isValidObjectId(id)) return null;
     const doc = await Quote.findByIdAndUpdate(id, update, { new: true });
