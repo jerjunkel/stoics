@@ -9,7 +9,7 @@ try {
   const dbURI = config.db.URI as string;
 
   await db.connect(dbURI);
-  // dailyQuoteJob.start();
+  dailyQuoteJob.start();
 
   app.listen(config.PORT, () => {
     console.log(`Listening on port ${config.PORT}`);

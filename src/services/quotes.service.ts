@@ -52,20 +52,31 @@ export default class QuoteService implements IService<IQuote> {
 
     const results = await this._repository.aggregate([
       {
+        $match: {
+          day: {
+            $exists: false,
+          },
+        },
+      },
+      {
         $sample: { size: 1 },
       },
-      { $match: { day: undefined } },
+      {
+        $addFields: { id: "$_id" },
+      },
+      {
+        $unset: "_id",
+      },
     ]);
 
+    // Throw error if no quotes found
     if (results.length == 0) throw new Error("No available quotes in database");
     const random = results[0];
-    // Throw error if no quotes found
     const update = await this._repository.update(random.id!, {
-      text: random.text,
       day: this.currentDayNumber,
     });
 
-    return { ...random, day: this.currentDayNumber };
+    return update!;
   }
 
   async isTodayQuoteSet(): Promise<Boolean> {

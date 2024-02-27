@@ -5,6 +5,9 @@ import QuoteService from "../services/quotes.service.js";
 const service = new QuoteService(new QuoteRespository());
 
 const onTick = async () => {
+  if (await service.isTodayQuoteSet()) {
+    return;
+  }
   await service.setTodaysQuote();
 };
 
