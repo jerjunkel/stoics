@@ -18,4 +18,7 @@ export default {
     stoic: new Types.ObjectId(),
     flag: true,
   },
+  id: () => {
+    return new Types.ObjectId().toString();
+  },
 };
