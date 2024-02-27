@@ -12,7 +12,7 @@ export default class QuoteRespository implements IRepository<IQuote> {
   async find(id: string): Promise<IQuote | null> {
     if (!isValidObjectId(id)) return null;
     const doc = await Quote.findById(id);
-    return doc?.toObject() as IQuote;
+    return doc ? doc!.toObject() : null;
   }
 
   async findAll(filter: FilterQuery<IQuote>): Promise<IQuote[]> {

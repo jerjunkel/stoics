@@ -32,6 +32,11 @@ describe("READ Quotes from DB", () => {
       expect(quote).toBeNull();
     });
 
+    it("should return null if ID is invalid", async () => {
+      const quote = await sut.find(mockID());
+      expect(quote).toBeNull();
+    });
+
     it("should return an array of quotes", async () => {
       await sut.create(mockQuote);
       await sut.create(mockQuote);
