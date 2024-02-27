@@ -12,7 +12,6 @@ export default {
     },
   ],
   quote: {
-    id: new Types.ObjectId().toString(),
     text: "Waste no more time arguing what a good man should be. Be One.",
     source: "n/a",
     tags: [],

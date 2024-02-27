@@ -61,12 +61,6 @@ export default class QuoteService implements IService<IQuote> {
       {
         $sample: { size: 1 },
       },
-      {
-        $addFields: { id: "$_id" },
-      },
-      {
-        $unset: "_id",
-      },
     ]);
 
     // Throw error if no quotes found

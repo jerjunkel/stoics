@@ -33,7 +33,16 @@ export default class QuoteRespository implements IRepository<IQuote> {
   }
 
   async aggregate(pipeline: PipelineStage[]): Promise<IQuote[]> {
-    const quotes: IQuote[] = await Quote.aggregate(pipeline);
+    const dbPipeline = [
+      ...pipeline,
+      {
+        $addFields: { id: "$_id" },
+      },
+      {
+        $unset: "_id",
+      },
+    ];
+    const quotes: IQuote[] = await Quote.aggregate(dbPipeline);
     return quotes;
   }
 }

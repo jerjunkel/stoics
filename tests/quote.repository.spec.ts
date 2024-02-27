@@ -47,6 +47,17 @@ describe("READ", () => {
       expect(Array.isArray(quotes)).toBe(true);
       expect(quotes.length).toBe(2);
     });
+
+    it("should return an array of quotes based on a aggregate", async () => {
+      await sut.create(mockQuote);
+      await sut.create(mockQuote);
+      await sut.create(mockQuote);
+      await sut.create(mockQuote);
+
+      const results = await sut.aggregate([{ $sample: { size: 3 } }]);
+      expect(Array.isArray(results)).toBe(true);
+      expect(results.length).toBe(3);
+    });
   });
 });
 
