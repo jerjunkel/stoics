@@ -1,7 +1,7 @@
-import QuoteRepository from "../src/repositories/quotes.repository";
-import { IQuote } from "../src/interfaces";
-import db from "../src/config/db";
-import sample from "./mock-samples";
+import QuoteRepository from "../../src/repositories/quotes.repository";
+import { IQuote } from "../../src/interfaces";
+import db from "../../src/config/db";
+import sample from "../mock-samples";
 const sut = new QuoteRepository();
 
 const mockQuote: IQuote = sample.quote;

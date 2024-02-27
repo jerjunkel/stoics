@@ -1,6 +1,6 @@
-import StoicsService from "../src/services/stoics.service";
-import StoicRepository from "../src/repositories/stoic.repository";
-import IStoic from "../src/interfaces/Stoic";
+import StoicsService from "../../src/services/stoics.service";
+import StoicRepository from "../../src/repositories/stoic.repository";
+import IStoic from "../../src/interfaces/Stoic";
 
 const mockRepo = new StoicRepository();
 const sut = new StoicsService(mockRepo);

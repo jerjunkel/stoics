@@ -1,6 +1,6 @@
-import QuoteService from "../src/services/quotes.service";
-import QuoteRespository from "../src/repositories/quotes.repository";
-import samples from "./mock-samples";
+import QuoteService from "../../src/services/quotes.service";
+import QuoteRespository from "../../src/repositories/quotes.repository";
+import samples from "../mock-samples";
 
 const mockRepo = new QuoteRespository();
 const sut = new QuoteService(mockRepo);

@@ -1,6 +1,6 @@
-import IStoic from "../src/interfaces/Stoic";
-import StoicRepository from "../src/repositories/stoic.repository";
-import db from "../src/config/db";
+import IStoic from "../../src/interfaces/Stoic";
+import StoicRepository from "../../src/repositories/stoic.repository";
+import db from "../../src/config/db";
 
 const sut = new StoicRepository();
 const stoicMocks: IStoic[] = [

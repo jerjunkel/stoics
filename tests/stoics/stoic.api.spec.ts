@@ -1,7 +1,7 @@
-import app from "../src/app";
+import app from "../../src/app";
 import request from "supertest";
-import samples from "./mock-samples";
-import StoicsService from "../src/services/stoics.service";
+import samples from "../mock-samples";
+import StoicsService from "../../src/services/stoics.service";
 
 const listAllStoicsSpy = jest.spyOn(StoicsService.prototype, "getAllStoics");
 const endpoint = "/stoics";
