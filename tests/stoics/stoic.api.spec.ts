@@ -1,14 +1,12 @@
 import app from "../../src/app";
 import request from "supertest";
 import samples from "../mock-samples";
-import StoicsService from "../../src/services/stoics.service";
+import db from "../../src/config/db";
 
-const listAllStoicsSpy = jest.spyOn(StoicsService.prototype, "getAllStoics");
 const endpoint = "/stoics";
 
 describe("GET /api/stoics", () => {
   it("should return an array of stoics", async () => {
-    listAllStoicsSpy.mockResolvedValue(samples.stoics);
     const sut = request(app());
     const response = await sut.get(endpoint);
     expect(Array.isArray(response.body.data)).toBe(true);
@@ -16,6 +14,11 @@ describe("GET /api/stoics", () => {
   });
 });
 
-beforeAll(() => {
-  listAllStoicsSpy.mockClear();
+beforeAll(async () => {
+  await db.connect("mongodb://localhost:27017/");
+});
+
+afterAll(async () => {
+  await db.dropCollection("stoics");
+  await db.disconnect();
 });
