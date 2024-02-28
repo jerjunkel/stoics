@@ -8,13 +8,15 @@ const endpoint = "/stoics";
 const repo = new StoicRepository();
 
 describe("GET /api/stoics", () => {
-  it("should return an array of stoics", async () => {
+  it("should respond with an array of stoics", async () => {
     const response = await sut.get(endpoint);
     expect(Array.isArray(response.body.data)).toBe(true);
     expect(response.statusCode).toBe(200);
   });
+});
 
-  it("should find a stoic by ID", async () => {
+describe("GET /api/stoics/:id", () => {
+  it("should respond with a stoic object", async () => {
     const stoic = await repo.create({
       name: "Mario Smart",
       bio: "From the mushrom kindom",
@@ -27,15 +29,14 @@ describe("GET /api/stoics", () => {
     expect(response.body.data.id).toBe(stoic.id);
   });
 
-  it("should return 404 status code and null if ID is invalid format ", async () => {
+  it("should respond with 404 status code and null if ID is invalid ", async () => {
     const response = await sut.get(`${endpoint}/foobar`);
     expect(response.statusCode).toBe(404);
     expect(response.body.data).toBe(null);
   });
 
-  it("should return 404 status and null if stoic is not found", async () => {
+  it("should respond with 404 status code and null if stoic not found", async () => {
     const response = await sut.get(`${endpoint}/658746c7e6916643c3e6950a`);
-
     expect(response.statusCode).toBe(404);
     expect(response.body.data).toBe(null);
   });
