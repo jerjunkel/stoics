@@ -11,7 +11,7 @@ describe("GET /api/stoics", () => {
     listAllStoicsSpy.mockResolvedValue(samples.stoics);
     const sut = request(app());
     const response = await sut.get(endpoint);
-    expect(Array.isArray(response.body)).toBe(true);
+    expect(Array.isArray(response.body.data)).toBe(true);
     expect(response.statusCode).toBe(200);
   });
 });

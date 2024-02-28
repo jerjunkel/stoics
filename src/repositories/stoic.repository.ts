@@ -14,7 +14,7 @@ export default class StoicRepository implements IRepository<IStoic> {
   }
   async findAll(filter: {}): Promise<IStoic[]> {
     const stoics = await Stoic.find(filter);
-    return stoics;
+    return stoics.map((doc) => doc.toObject());
   }
 
   async delete(id: string): Promise<Boolean> {
