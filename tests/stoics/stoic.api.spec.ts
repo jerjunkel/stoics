@@ -42,6 +42,37 @@ describe("GET /api/stoics/:id", () => {
   });
 });
 
+describe("GET /api/stoics?name=foo", () => {
+  it("should respond with an array of stoics", async () => {
+    const stoics = [
+      {
+        name: "Foo Bar",
+        bio: "Foo bar is smart",
+        image: "https://foo-bar.jpg",
+      },
+      {
+        name: "Bar Foo",
+        bio: "Foo bar is intelligent",
+        image: "https://bar-foo.jpg",
+      },
+      {
+        name: "Billy Bob",
+        bio: "Don't know much about billy bob",
+        image: "https://billy-bob.jpg",
+      },
+    ];
+
+    for (const stoic of stoics) {
+      await repo.create(stoic);
+    }
+
+    const response = await sut.get(`${endpoint}?name=foo`);
+    expect(response.statusCode).toBe(200);
+    expect(Array.isArray(response.body.data)).toBe(true);
+    expect(response.body.data.length).toBe(2);
+  });
+});
+
 beforeAll(async () => {
   await db.connect("mongodb://localhost:27017/");
 });

@@ -20,7 +20,9 @@ export default class StoicsService implements IService<IStoic> {
   }
 
   async findStoicByName(name: string): Promise<IStoic[]> {
-    return this._repository.findAll({ name });
+    return this._repository.findAll({
+      name: new RegExp("\\b" + name + "\\b", "i"),
+    });
   }
 
   async getAllStoics(): Promise<IStoic[]> {

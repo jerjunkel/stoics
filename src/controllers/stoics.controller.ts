@@ -7,7 +7,11 @@ import { addResourceType } from "../utils/api.js";
 const service = new StoicsService(new StoicRepository());
 
 const listAllStoics = async (req: Request, res: Response) => {
-  const stoics = await service.getAllStoics();
+  const { name } = req.query;
+  const stoics = name
+    ? await service.findStoicByName(name as string)
+    : await service.getAllStoics();
+
   res.status(200).json({
     data: addResourceType<IStoic>("stoics", stoics),
   });
