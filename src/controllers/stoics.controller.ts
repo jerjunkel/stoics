@@ -17,7 +17,7 @@ const getAllStoics = async (req: Request, res: Response) => {
 const getAStoic = async (req: Request, res: Response) => {
   const id = req.params.id;
   const stoic = await Stoic.findById(id);
-  res.send(stoic);
+  res.status(200).json({ data: stoic?.toObject() });
 };
 
 export { getAStoic, getAllStoics };
