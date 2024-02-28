@@ -6,6 +6,7 @@ import StoicRepository from "../../src/repositories/stoic.repository";
 const sut = request(app());
 const endpoint = "/stoics";
 const repo = new StoicRepository();
+
 describe("GET /api/stoics", () => {
   it("should return an array of stoics", async () => {
     const response = await sut.get(endpoint);
@@ -24,6 +25,12 @@ describe("GET /api/stoics", () => {
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty("data");
     expect(response.body.data.id).toBe(stoic.id);
+  });
+
+  it("should return 404 status code and null if ID is invalid format ", async () => {
+    const response = await sut.get(`${endpoint}/foobar`);
+    expect(response.statusCode).toBe(404);
+    expect(response.body.data).toBe(null);
   });
 });
 
