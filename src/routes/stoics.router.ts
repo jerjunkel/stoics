@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { getAllStoics, getAStoic } from "../controllers/stoics.controller.js";
+import {
+  listAllStoics,
+  findStoicByID,
+} from "../controllers/stoics.controller.js";
 
 const router = Router();
 
-router.get("/", getAllStoics).get("/:id", getAStoic);
+router.get("/", listAllStoics).get("/:id", findStoicByID);
 
 export default router;
