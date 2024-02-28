@@ -5,13 +5,12 @@ import Stoic from "../models/stoics.model.js";
 export default class StoicRepository implements IRepository<IStoic> {
   async create(element: IStoic): Promise<IStoic> {
     const stoic = await Stoic.create(element);
-    const id = stoic._id.toString();
-    return { id, ...element };
+    return stoic.toObject();
   }
 
   async find(id: string): Promise<IStoic | null> {
     const stoic = await Stoic.findById(id);
-    return stoic;
+    return stoic ? stoic.toObject() : null;
   }
   async findAll(filter: {}): Promise<IStoic[]> {
     const stoics = await Stoic.find(filter);
@@ -19,12 +18,12 @@ export default class StoicRepository implements IRepository<IStoic> {
   }
 
   async delete(id: string): Promise<Boolean> {
-    const deleted = await Stoic.findByIdAndDelete(id);
-    return deleted ? true : false;
+    const success = await Stoic.findByIdAndDelete(id);
+    return success ? true : false;
   }
 
   async update(id: string, update: Partial<IStoic>): Promise<IStoic | null> {
     const stoic = await Stoic.findByIdAndUpdate(id, update);
-    return stoic;
+    return stoic ? stoic.toObject() : null;
   }
 }

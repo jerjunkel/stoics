@@ -15,17 +15,17 @@ const stoicMocks: IStoic[] = [
     bio: "Some bio about the stoic",
   },
   {
-    name: " Marco Smart",
+    name: "Marco Smart",
     image: "https://marco-smart-pic.img",
     bio: "Some bio about the stoic",
   },
   {
-    name: " John Doe",
+    name: "John Doe",
     image: "https://marco-smart-pic.img",
     bio: "Some bio about the stoic",
   },
   {
-    name: " Mary Jane",
+    name: "Mary Jane",
     image: "https://mary-jane-pic.img",
     bio: "Some bio about the stoic",
   },
@@ -55,11 +55,10 @@ describe("CREATE", () => {
 describe("READ", () => {
   it("should return a stoic entity if found", async () => {
     const stoic = await sut.create(stoicMocks[2]);
+    const query = await sut.find(stoic.id!);
 
-    if (stoic.id) {
-      const query = await sut.find(stoic?.id);
-      expect(query?.id).toBe(stoic.id);
-    }
+    expect(query).not.toBeNull();
+    expect(query?.id).toBe(stoic.id);
   });
 
   it("should return null if no stoic is found", async () => {
@@ -108,6 +107,10 @@ describe("DELETE", () => {
 
 beforeAll(async () => {
   await db.connect("mongodb://localhost:27017");
+});
+
+beforeEach(async () => {
+  // await db.dropCollection("stoics");
 });
 
 afterAll(async () => {
