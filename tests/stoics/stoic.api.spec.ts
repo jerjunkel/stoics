@@ -32,6 +32,13 @@ describe("GET /api/stoics", () => {
     expect(response.statusCode).toBe(404);
     expect(response.body.data).toBe(null);
   });
+
+  it("should return 404 status and null if stoic is not found", async () => {
+    const response = await sut.get(`${endpoint}/658746c7e6916643c3e6950a`);
+
+    expect(response.statusCode).toBe(404);
+    expect(response.body.data).toBe(null);
+  });
 });
 
 beforeAll(async () => {

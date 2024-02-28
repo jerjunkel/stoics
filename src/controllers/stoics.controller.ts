@@ -17,7 +17,9 @@ const findStoicByID = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const stoic = await service.findStoicByID(id);
-    res.status(200).json({ data: addResourceType<IStoic>("stoics", stoic!) });
+    res
+      .status(stoic ? 200 : 404)
+      .json({ data: stoic ? addResourceType<IStoic>("stoics", stoic) : null });
   } catch (err) {
     res.status(404).json({ data: null });
   }
