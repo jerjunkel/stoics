@@ -29,10 +29,10 @@ describe("GET /api/stoics/:id", () => {
     expect(response.body.data.id).toBe(stoic.id);
   });
 
-  it("should respond with 404 status code and null if ID is invalid ", async () => {
+  it("should respond with 400 status code and null if ID is invalid ", async () => {
     const response = await sut.get(`${endpoint}/foobar`);
-    expect(response.statusCode).toBe(404);
-    expect(response.body.data).toBe(null);
+    expect(response.statusCode).toBe(400);
+    expect(Array.isArray(response.body.errors)).toBe(true);
   });
 
   it("should respond with 404 status code and null if stoic not found", async () => {

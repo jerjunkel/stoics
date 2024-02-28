@@ -21,7 +21,15 @@ const findStoicByID = async (req: Request, res: Response) => {
       .status(stoic ? 200 : 404)
       .json({ data: stoic ? addResourceType<IStoic>("stoics", stoic) : null });
   } catch (err) {
-    res.status(404).json({ data: null });
+    if (err instanceof Error) {
+      return res
+        .status(400)
+        .json({ errors: [{ title: "client_error", detail: err.message }] });
+    }
+
+    res
+      .status(400)
+      .json({ errors: [{ title: "client_error", detail: "Bad request" }] });
   }
 };
 
