@@ -1,41 +1,11 @@
 import IStoic from "../../src/interfaces/Stoic";
 import StoicRepository from "../../src/repositories/stoic.repository";
 import db from "../../src/config/db";
+import mockSamples from "../mock-samples";
 
 const sut = new StoicRepository();
-const stoicMocks: IStoic[] = [
-  {
-    name: "Johnny Morron",
-    image: "https://john-morron-pic.img",
-    bio: "Some bio about the stoic",
-  },
-  {
-    name: "Peggy Wisdom",
-    image: "https://peggy-wise-pic.img",
-    bio: "Some bio about the stoic",
-  },
-  {
-    name: "Marco Smart",
-    image: "https://marco-smart-pic.img",
-    bio: "Some bio about the stoic",
-  },
-  {
-    name: "John Doe",
-    image: "https://marco-smart-pic.img",
-    bio: "Some bio about the stoic",
-  },
-  {
-    name: "Mary Jane",
-    image: "https://mary-jane-pic.img",
-    bio: "Some bio about the stoic",
-  },
-  {
-    name: "Deleted Stoic",
-    image: "https://delete-stoic-pic.img",
-    bio: "Some bio about the stoic",
-  },
-];
-const mockID = "658746c6e6916643c3e69503";
+const stoicMocks: IStoic[] = mockSamples.stoics;
+const mockID = mockSamples.id();
 
 describe("CREATE", () => {
   it("should return the created stoic entity", async () => {
