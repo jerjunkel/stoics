@@ -11,7 +11,7 @@ const getAllQuotes = async (req: Request, res: Response) => {
   return res.json(quotes);
 };
 
-const getAQuote = async (req: Request, res: Response) => {
+const findQuoteByID = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const quote = await service.getAQuoteByID(id);
@@ -40,7 +40,7 @@ const getARandomQuote = async (req: Request, res: Response) => {
 export default {
   service,
   getAllQuotes,
-  getAQuote,
+  findQuoteByID,
   getTodayQuote,
   getARandomQuote,
 };

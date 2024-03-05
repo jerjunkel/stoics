@@ -14,7 +14,7 @@ const mockQuote: IQuote = {
   tags: [],
 };
 
-describe("GET /api/qoutes/:id", () => {
+describe("GET /api/quotes/:id", () => {
   it("should respond with a single quote", async () => {
     const quote = await repo.create(mockQuote);
     const sut = request(app());
