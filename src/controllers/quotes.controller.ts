@@ -6,9 +6,11 @@ import IQuote from "../interfaces/Quote.js";
 
 const service = new QuoteService(new QuoteRespository());
 
-const getAllQuotes = async (req: Request, res: Response) => {
+const listAllQuotes = async (req: Request, res: Response) => {
   const quotes = await service.getAllQuotes();
-  return res.json(quotes);
+  return res.json({
+    data: quotes.map((quote) => addResourceType<IQuote>("quotes", quote)),
+  });
 };
 
 const findQuoteByID = async (req: Request, res: Response) => {
@@ -39,7 +41,7 @@ const getARandomQuote = async (req: Request, res: Response) => {
 
 export default {
   service,
-  getAllQuotes,
+  listAllQuotes,
   findQuoteByID,
   getTodayQuote,
   getARandomQuote,

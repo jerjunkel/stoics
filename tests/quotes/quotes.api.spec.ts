@@ -14,6 +14,36 @@ const mockQuote: IQuote = {
   tags: [],
 };
 
+describe("GET /api/quotes", () => {
+  it("should respond with an array of quotes", async () => {
+    const quotes = [
+      {
+        stoic: new Types.ObjectId("658746c5e6916643c3e694a9"),
+        text: "foobar is a foo bar",
+        tags: [],
+      },
+      {
+        stoic: new Types.ObjectId("658746c5e6916643c3e694a9"),
+        text: "it's raining lots of foos",
+        tags: [],
+      },
+    ];
+
+    for (const quote of quotes) {
+      await repo.create(quote);
+    }
+
+    const sut = request(app());
+    const response = await sut.get(`${endpoint}`);
+
+    expect(response.statusCode).toBe(200);
+    expect(response.header["content-type"]).toMatch(/json/);
+    expect(response.body).toHaveProperty("data");
+    expect(Array.isArray(response.body.data)).toBe(true);
+    expect(response.body.data.length).toBe(2);
+  });
+});
+
 describe("GET /api/quotes/:id", () => {
   it("should respond with a single quote", async () => {
     const quote = await repo.create(mockQuote);
