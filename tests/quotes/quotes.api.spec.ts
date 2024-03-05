@@ -27,10 +27,12 @@ describe("GET /api/qoutes/:id", () => {
     expect(response.body.data.id).toBe(quote.id);
   });
 
-  it("should return status code of 404", async () => {
+  it("should respond with a status code of 404 if no quote is found", async () => {
     const sut = request(app());
-    const response = await sut.get(endpoint);
+    const response = await sut.get(`${endpoint}/658746c5e6916643c3e694a9`);
+
     expect(response.statusCode).toBe(404);
+    expect(response.body.data).toBe(null);
   });
 });
 
