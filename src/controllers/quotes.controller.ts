@@ -1,6 +1,8 @@
 import { Response, Request } from "express";
 import QuoteService from "../services/quotes.service.js";
 import QuoteRespository from "../repositories/quotes.repository.js";
+import { addResourceType } from "../utils/api.js";
+import IQuote from "../interfaces/Quote.js";
 
 const service = new QuoteService(new QuoteRespository());
 
@@ -11,9 +13,18 @@ const getAllQuotes = async (req: Request, res: Response) => {
 
 const getAQuote = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const quote = await service.getAQuoteByID(id);
-  if (quote == null) return res.status(404).json({});
-  return res.status(200).json(quote);
+  try {
+    const quote = await service.getAQuoteByID(id);
+    res
+      .status(quote ? 200 : 404)
+      .json({ data: quote ? addResourceType<IQuote>("quotes", quote) : null });
+  } catch (err) {
+    if (err instanceof Error) {
+      return res
+        .status(400)
+        .json({ errors: [{ title: "client_error", detail: err.message }] });
+    }
+  }
 };
 
 const getTodayQuote = async (req: Request, res: Response) => {

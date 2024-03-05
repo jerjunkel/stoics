@@ -6,6 +6,6 @@ export default interface IQuote {
   stoic: Types.ObjectId;
   text: string;
   day?: number;
-  source: string;
+  source?: string;
   tags: Tag[];
 }
