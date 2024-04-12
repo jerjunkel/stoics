@@ -1,8 +1,10 @@
 services:
-  server:
+  api:
     image: stoic-api
     ports:
       - 3000:3000
+    env_file:
+      - .env
     environment:
       PORT: ${PORT}
       MONGO_URI: ${MONGO_URI}
