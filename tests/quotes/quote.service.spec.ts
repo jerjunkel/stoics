@@ -7,6 +7,7 @@ const sut = new QuoteService(mockRepo);
 const mockQuote = samples.quoteWithID;
 const mockRepoFindSpy = jest.spyOn(mockRepo, "find");
 const mockRepoUpdate = jest.spyOn(mockRepo, "update");
+const mockRepoCreateSpy = jest.spyOn(mockRepo, "create");
 const mockRepoFindAllSpy = jest
   .spyOn(mockRepo, "findAll")
   .mockResolvedValue([]);
@@ -118,6 +119,15 @@ describe("Quote Service", () => {
       mockRepoFindAllSpy.mockResolvedValue([]);
       const isTodayQuoteSet = await sut.isTodayQuoteSet();
       expect(isTodayQuoteSet).toBe(false);
+    });
+  });
+
+  describe("new quotes", () => {
+    it("should return the created quote", async () => {
+      mockRepoCreateSpy.mockResolvedValue(mockQuote);
+
+      const quote = await sut.addNewQuote(mockQuote);
+      expect(quote.text).toEqual(mockQuote.text);
     });
   });
 });

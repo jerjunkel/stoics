@@ -79,4 +79,8 @@ export default class QuoteService implements IService<IQuote> {
     });
     return results.length > 0;
   }
+
+  async addNewQuote(data: IQuote): Promise<IQuote> {
+    return await this._repository.create(data);
+  }
 }
