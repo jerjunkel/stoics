@@ -3,8 +3,12 @@ import StoicRepository from "../repositories/stoic.repository.js";
 import StoicsService from "../services/stoics.service.js";
 import IStoic from "../interfaces/Stoic.js";
 import { addResourceType } from "../utils/api.js";
+import QuoteService from "../services/quotes.service.js";
+import QuoteRespository from "../repositories/quotes.repository.js";
+import IQuote from "../interfaces/Quote.js";
 
 const service = new StoicsService(new StoicRepository());
+const quoteService = new QuoteService(new QuoteRespository());
 
 const listAllStoics = async (req: Request, res: Response) => {
   const { name } = req.query;
@@ -37,4 +41,19 @@ const findStoicByID = async (req: Request, res: Response) => {
   }
 };
 
-export { findStoicByID, listAllStoics };
+const findStoicQuotes = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    const stoic = await service.findStoicByID(id);
+    const quotes = await quoteService.getQuotesByStoicID(stoic?.id!);
+
+    res.status(200).json({
+      data: addResourceType<IQuote>("quotes", quotes),
+    });
+  } catch {
+    res
+      .status(400)
+      .json({ errors: [{ title: "client_error", detail: "Bad request" }] });
+  }
+};
+export { findStoicByID, listAllStoics, findStoicQuotes };

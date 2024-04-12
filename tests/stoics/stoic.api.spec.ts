@@ -2,10 +2,13 @@ import app from "../../src/app";
 import request from "supertest";
 import db from "../../src/config/db";
 import StoicRepository from "../../src/repositories/stoic.repository";
+import QuoteRespository from "../../src/repositories/quotes.repository";
+import { Types } from "mongoose";
 
 const sut = request(app());
 const endpoint = "/stoics";
 const repo = new StoicRepository();
+const quoteRepo = new QuoteRespository();
 
 describe("GET /api/stoics", () => {
   it("should respond with an array of stoics", async () => {
@@ -70,6 +73,28 @@ describe("GET /api/stoics?name=foo", () => {
     expect(response.statusCode).toBe(200);
     expect(Array.isArray(response.body.data)).toBe(true);
     expect(response.body.data.length).toBe(2);
+  });
+});
+
+describe("GET /api/stoics/:id/quotes", () => {
+  it("should respond with an array of quotes", async () => {
+    const stoic = await repo.create({
+      name: "John Doe",
+      bio: "Some stoics named John",
+      image: "https://billy-bob.jpg",
+    });
+    const stoicID = stoic.id!;
+
+    await quoteRepo.create({
+      text: "Some quote",
+      stoic: new Types.ObjectId(stoicID),
+      tags: [],
+    });
+
+    const response = await sut.get(`${endpoint}/${stoicID}/quotes`);
+    expect(response.statusCode).toBe(200);
+    expect(Array.isArray(response.body.data)).toBe(true);
+    expect(response.body.data.length).toBeGreaterThan(0);
   });
 });
 

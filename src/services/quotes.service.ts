@@ -28,6 +28,11 @@ export default class QuoteService implements IService<IQuote> {
     return quotes;
   }
 
+  async getQuotesByStoicID(id: string): Promise<IQuote[]> {
+    const quotes = await this.repository.findAll({ stoic: id });
+    return quotes;
+  }
+
   async getAQuoteByID(id: string) {
     const quote = await this._repository.find(id);
     return quote;
