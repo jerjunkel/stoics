@@ -3,14 +3,8 @@ services:
     image: stoic-api
     ports:
       - 3000:3000
-    env_file:
-      - .env
     environment:
       PORT: ${PORT}
       MONGO_URI: ${MONGO_URI}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRE: ${JWT_EXPIRE}
-  # mongodb:
-  #   image: mongodb/mongodb-community-server
-  #   ports:
-  #     - 27017:27017
