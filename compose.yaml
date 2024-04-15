@@ -2,9 +2,17 @@ services:
   api:
     image: stoic-api
     ports:
-      - 3000:3000
+      - 3000
     environment:
       PORT: ${PORT}
       MONGO_URI: ${MONGO_URI}
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRE: ${JWT_EXPIRE}
+  nginx:
+    image: nginx
+    ports:
+      - 3000:80
+    depends_on:
+      - api
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
